@@ -20,3 +20,8 @@ Animated example:
 Map the matrix to an image and perform transformations to make the image wobble.
 
 For example: https://open.gl/transformations
+
+## Limitations
+
+1. The movement might look bad if it's not properly configured.
+2. The mechanism that prevents grid deformation doesn't work (it should wobble, but still be a grid. Sometimes it becomes an entirely different shape).

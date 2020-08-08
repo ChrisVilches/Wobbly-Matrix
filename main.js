@@ -146,6 +146,16 @@ function surroundingLines(i, j){
   return lines;
 }
 
+// TODO: This doesn't work. The bug cause is unknown.
+// Perhaps the intersection is not computed correctly,
+// or some logic isn't working.
+//
+// The purpose is to get the point initial position, and
+// the position it will move to in the next frame, detect
+// any collisions, and if any, change the point position so
+// it doesn't collide, for example by placing the point in
+// between the initial position and the collision point,
+// instead of beyond the collision point.
 function avoidIntersection(i, j, nextP){
   let p = grid[i][j];
   // Define all lines to check intersections.
