@@ -160,13 +160,24 @@ function avoidIntersection(i, j, nextP){
     let from = line[0];
     let to = line[1];
 
-    let fromPoint = grid[from[0][from[1]]];
-    let toPoint = grid[to[0]  [to[1]]];
+    let fromPoint = grid[from[0]][from[1]];
+    let toPoint = grid[to[0]][to[1]];
     return [fromPoint, toPoint];
   });
 
   if(linesToCheck.length === 0){
     throw new Error(`Point ${i}, ${j} doesn't have lines. Rows=${rows}, cols=${cols}`);
+  }
+
+  console.assert(linesToCheck.length > 0);
+  for(let i=0; i<linesToCheck.length; i++){
+    let line = linesToCheck[i];
+    console.assert(line.length == 2);
+    line.forEach(p => {
+      console.assert(typeof p === 'object');
+      console.assert(p.hasOwnProperty('x'));
+      console.assert(p.hasOwnProperty('y'));
+    });
   }
 
   let intersection = Util.closestIntersection(p, nextP, linesToCheck);

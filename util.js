@@ -36,7 +36,7 @@ function parallelIntersection(p1, p2, p3, p4){
 
 function twoLinesIntersection(p1, p2, p3, p4){
   let inter = parallelIntersection(p1, p2, p3, p4);
-  if(inter){
+  if(inter !== null){
     return inter;
   }
   return intersect(
@@ -48,7 +48,6 @@ function twoLinesIntersection(p1, p2, p3, p4){
 }
 
 const Util = {
-
   // p1 ----> p2 (first vector)
   // allLines is [[q1, q2], [r1, r2], [s1, s2]]
   // Returns point { x:, y: } or else null.
@@ -63,8 +62,8 @@ const Util = {
     allLines.forEach(line => {
       let r1 = line[0];
       let r2 = line[1];
-      if(typeof r1 === 'undefined') return null;
-      if(typeof r2 === 'undefined') return null;
+      console.assert(typeof r1 !== 'undefined');
+      console.assert(typeof r2 !== 'undefined');
       let inter = twoLinesIntersection(p1, p2, r1, r2);
       if(inter != false){
         allIntersections.push(inter);
