@@ -1,6 +1,6 @@
 # Wobbly matrix
 
-## What is this
+## What is this?
 
 A geometric algorithm inspired by Ubuntu's wobbly windows.
 
