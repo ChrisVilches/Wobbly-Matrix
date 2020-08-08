@@ -1,13 +1,20 @@
-# What is this
+# Wobbly matrix
 
-An algorithm inspired by Ubuntu's wobbly windows.
+## What is this
 
-# How to use
+A geometric algorithm inspired by Ubuntu's wobbly windows.
 
-Clone or download and open `index.html`
+![](wobble-example.gif)
 
-# Future work
+## How to use
+
+1. Clone or download.
+2. Open `index.html`.
+3. Move mouse to make it wobble.
+4. (Optional) Configure `config.js` to create different effects.
+
+## Future work
 
 Map the matrix to an image and perform transformations to make the image wobble.
 
-https://open.gl/transformations
+For example: https://open.gl/transformations

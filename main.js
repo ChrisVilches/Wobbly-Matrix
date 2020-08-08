@@ -21,7 +21,7 @@ let prevDx = [];
 let prevDy = [];
 
 // Modify in config file.
-let speed = config.speed;
+let speed = config.speed; // TODO: rename this parameter.
 let cellSize = config.cellSize;
 let limitAcc = config.limitAcc;
 let dLimit = config.dLimit;
@@ -29,9 +29,7 @@ let rows = config.rows;
 let cols = config.cols;
 let distToMainWeight = config.distToMainWeight;
 let maxD = config.maxD;
-
-// The grid will be centered at this point. Can be any point, even outside the row/col dimensions.
-let centerPoint = { x: -3, y: -4 };
+let centerPoint = config.centerPoint;
 
 for(let i=0; i<rows; i++){
   grid.push([]);
