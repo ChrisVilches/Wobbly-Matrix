@@ -6,7 +6,7 @@ A geometric algorithm inspired by Ubuntu's wobbly windows.
 
 Animated example:
 
-![](wobble-example.gif)
+![](wobble-example2.gif)
 
 ## How to use
 
