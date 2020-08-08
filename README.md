@@ -4,6 +4,8 @@
 
 A geometric algorithm inspired by Ubuntu's wobbly windows.
 
+Animated example:
+
 ![](wobble-example.gif)
 
 ## How to use
