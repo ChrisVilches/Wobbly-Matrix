@@ -3,7 +3,10 @@
   "compilerOptions": {
     "rootDir": ".",
     "declaration": false,
-    "lib": ["ES2015", "DOM"]
+    "lib": [
+      "ES2015",
+      "DOM"
+    ]
   },
   "include": [
     "src/**/*.ts",
