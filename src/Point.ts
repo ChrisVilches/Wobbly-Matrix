@@ -1,5 +1,3 @@
-import {PointCoordinates} from './PointCoordinates';
-
 export class Point {
   x: number;
   y: number;
@@ -7,10 +5,6 @@ export class Point {
   constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
-  }
-
-  static fromJson(obj: PointCoordinates) {
-    return new Point(obj.x, obj.y);
   }
 
   assign(p: Point): void {

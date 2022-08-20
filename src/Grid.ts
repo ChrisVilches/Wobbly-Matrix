@@ -6,10 +6,8 @@ export class Grid {
   readonly grid: Point[][] = [];
   private prevDx: number[][] = [];
   private prevDy: number[][] = [];
-
   private options: GridConfiguration;
 
-  // TODO: Rename speed parameter????
   constructor(options: GridConfiguration) {
     this.options = options;
     this.initialize();
@@ -29,7 +27,7 @@ export class Grid {
       this.prevDx.push([]);
       this.prevDy.push([]);
       for (let j = 0; j < this.cols; j++) {
-        this.grid[i].push(this.restPosition(i, j, this.options.centerPoint));
+        this.grid[i].push(this.restPosition(i, j, new Point(0, 0)));
         this.prevDx[i].push(0);
         this.prevDy[i].push(0);
       }
@@ -38,8 +36,8 @@ export class Grid {
 
   private restPosition(i: number, j: number, mainPoint: Point) {
     return new Point(
-      mainPoint.x - this.options.cellSize * (this.options.centerPoint.x + i),
-      mainPoint.y - this.options.cellSize * (this.options.centerPoint.y + j)
+      mainPoint.x - this.options.cellSize * (this.options.centerCell.col - j),
+      mainPoint.y - this.options.cellSize * (this.options.centerCell.row - i)
     );
   }
 
@@ -88,34 +86,25 @@ export class Grid {
     }
   }
 
-  // TODO: Main point should be called differently
   private updatePoint(i: number, j: number, mainPoint: Point) {
     const prevDx = this.prevDx;
     const prevDy = this.prevDy;
     const grid = this.grid;
 
     const p = grid[i][j];
-    const restPosition = mainPoint.subtract(
-      new Point(
-        this.options.cellSize * (this.options.centerPoint.x + i),
-        this.options.cellSize * (this.options.centerPoint.y + j)
-      )
-    );
+    const restPosition = this.restPosition(i, j, mainPoint);
 
-    // Update prevDx[i] and prevDy[i]
     this.updateDifferentials(i, j, p, restPosition, mainPoint);
 
     p.setCoordinates(p.x + prevDx[i][j], p.y + prevDy[i][j]);
 
-    const rest = this.restPosition(i, j, mainPoint);
-
-    const diff = p.subtract(rest);
+    const diff = p.subtract(restPosition);
 
     if (
       diff.magnitude() > this.options.eps &&
       diff.magnitude() > this.options.maxDist
     ) {
-      p.assign(rest.add(diff.normalize().scale(this.options.maxDist)));
+      p.assign(restPosition.add(diff.normalize().scale(this.options.maxDist)));
     }
   }
 }

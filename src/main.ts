@@ -1,29 +1,22 @@
 import {Point} from './Point';
 import {CanvasRenderer} from './CanvasRenderer';
 import {Grid} from './Grid';
-import {PointCoordinates} from './PointCoordinates';
-import {GridConfiguration} from './GridConfiguration';
 import config from './default-grid-config.json';
 
 let canvasRenderer: CanvasRenderer;
-let mainPoint: Point;
 
+const mainPoint: Point = new Point(0, 0);
 const mousePos: Point = new Point(0, 0);
 
-const gridConfig: GridConfiguration = {
-  ...config,
-  centerPoint: Point.fromJson(config.centerPoint as PointCoordinates),
-};
+const grid: Grid = new Grid(config);
 
-const grid: Grid = new Grid(gridConfig);
-
-function updateMainPoint() {
+function updatemainPoint() {
   mainPoint.x -= -(mousePos.x - mainPoint.x) / 5;
   mainPoint.y -= -(mousePos.y - mainPoint.y) / 5;
 }
 
 function update() {
-  updateMainPoint();
+  updatemainPoint();
   grid.updatePoints(mainPoint);
 }
 
@@ -40,19 +33,20 @@ function mouseMoveHandle(e: MouseEvent) {
   mousePos.y = e.clientY;
 }
 
-function main() {
-  document.write(
-    '<canvas id="main-canvas" width="1800" height="1800" style="border: 1px solid black"></canvas>'
-  );
+function createCanvasElement(): HTMLCanvasElement {
+  const canvas: HTMLCanvasElement = document.createElement('canvas');
+  canvas.width = 1800;
+  canvas.height = 1800;
+  canvas.style.border = '1px solid black';
+  return canvas;
+}
 
-  const canvasElement: HTMLCanvasElement = document.getElementById(
-    'main-canvas'
-  ) as HTMLCanvasElement;
+function main() {
+  const canvasElement: HTMLCanvasElement = createCanvasElement();
+  canvasElement.addEventListener('mousemove', mouseMoveHandle);
+  document.body.append(canvasElement);
 
   canvasRenderer = new CanvasRenderer(canvasElement);
-  mainPoint = new Point(canvasRenderer.width / 2, canvasRenderer.height / 2);
-
-  canvasRenderer.setMouseMoveHandler(mouseMoveHandle);
 
   loop();
 }

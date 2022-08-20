@@ -9,6 +9,9 @@
           "webpack-merge"
         ]
       }
+    ],
+    "camelcase": [
+      "error"
     ]
   }
 }

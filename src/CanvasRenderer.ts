@@ -50,7 +50,7 @@ export class CanvasRenderer {
       }
     }
 
-    this.drawCircle(mainPoint, 15, '#ff0000');
+    this.drawCircle(mainPoint, 10, '#990000');
 
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
@@ -65,9 +65,5 @@ export class CanvasRenderer {
         }
       }
     }
-  }
-
-  setMouseMoveHandler(callback: {(event: MouseEvent): void}) {
-    this.canvas.addEventListener('mousemove', callback);
   }
 }

@@ -1,10 +1,12 @@
-import {Point} from './Point';
+import {Cell} from './Cell';
 
 export interface GridConfiguration {
-  centerPoint: Point;
+  centerCell: Cell;
   rows: number;
   cols: number;
   cellSize: number;
+
+  // TODO: Rename speed parameter????
   speed: number;
   eps: number;
   maxDist: number;
