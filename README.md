@@ -1,5 +1,7 @@
 # Wobbly matrix
 
+[![Code Style: Google](https://img.shields.io/badge/code%20style-google-blueviolet.svg)](https://github.com/google/gts)
+
 ## What is this?
 
 A geometric algorithm inspired by Ubuntu's wobbly windows.

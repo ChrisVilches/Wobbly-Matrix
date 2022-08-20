@@ -1,0 +1,16 @@
+{
+  "speed": 50,
+  "cellSize": 150,
+  "limitAcc": 1.5,
+  "dLimit": 1.2,
+  "rows": 5,
+  "cols": 5,
+  "distToMainWeight": 0.125,
+  "maxD": 100,
+  "centerPoint": {
+    "x": -2,
+    "y": -2
+  },
+  "EPS": 1e-7,
+  "MAX_DIST": 150
+}

@@ -1,0 +1,32 @@
+{
+  "name": "wobbly-matrix",
+  "version": "2.0.0",
+  "description": "## What is this?",
+  "private": true,
+  "scripts": {
+    "lint": "gts lint",
+    "format": "gts fix",
+    "dev": "webpack serve --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisVilches/Wobbly-Matrix.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChrisVilches/Wobbly-Matrix/issues"
+  },
+  "homepage": "https://github.com/ChrisVilches/Wobbly-Matrix#readme",
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "ts-loader": "^9.3.1",
+    "typescript": "4.4.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.10.0",
+    "gts": "^3.1.0",
+    "@types/node": "^14.11.2"
+  }
+}
