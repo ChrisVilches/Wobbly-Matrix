@@ -16,11 +16,10 @@ export class CanvasRenderer {
 
   private drawLine(p1: Point, p2: Point): void {
     const ctx = this.ctx;
-    const size = 5;
     ctx.beginPath();
     ctx.strokeStyle = colors.gridSegment;
-    ctx.moveTo(p1.x - size / 2, p1.y - size / 2);
-    ctx.lineTo(p2.x - size / 2, p2.y - size / 2);
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
     ctx.stroke();
   }
 
@@ -30,7 +29,6 @@ export class CanvasRenderer {
     ctx.arc(p.x, p.y, radius, 0, 2 * Math.PI, false);
     ctx.fillStyle = color;
     ctx.fill();
-    ctx.lineWidth = 2;
     ctx.stroke();
   }
 

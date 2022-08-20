@@ -27,11 +27,11 @@ function loop() {
 
   setTimeout(() => {
     window.requestAnimationFrame(loop);
-  }, 100);
+  }, 30);
 }
 
 function mouseMoveHandle(e: MouseEvent) {
-  mousePos.setCoordinates(e.clientX, e.clientY)
+  mousePos.setCoordinates(e.clientX, e.clientY);
 }
 
 function createCanvasElement(): HTMLCanvasElement {

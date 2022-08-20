@@ -1,9 +1,10 @@
 import {Point} from '@classes/Point';
 import {GridConfiguration} from '@interfaces/GridConfiguration';
-import {drawNear, limitAbs} from '../util';
 
 export class Grid {
   readonly grid: Point[][] = [];
+
+  // TODO: Consider using a matrix of "vectors", not two matrices of independent X, Y values.
   private prevDx: number[][] = [];
   private prevDy: number[][] = [];
   private options: GridConfiguration;
@@ -41,41 +42,33 @@ export class Grid {
     );
   }
 
-  private updateDifferentials(
+  private updateOffsets(
     i: number,
     j: number,
     point: Point,
     restPosition: Point,
     mainPoint: Point
   ) {
-    const prevDx = this.prevDx;
-    const prevDy = this.prevDy;
-
-    const prevDxValue = prevDx[i][j];
-    const prevDyValue = prevDy[i][j];
+    const prevDxValue = this.prevDx[i][j];
+    const prevDyValue = this.prevDy[i][j];
 
     const distToMain = mainPoint.dist(point);
 
-    // Update speed so it goes closer to the point it should be.
-    let dx = (restPosition.x - point.x) / this.options.speed;
-    let dy = (restPosition.y - point.y) / this.options.speed;
+    let d = restPosition.subtract(point);
 
-    // Make it a bit different depending on its position with respect to the main point.
-    // This makes all points oscillate differently.
-    // Without this, the entire grid would oscillate like it's solid.
-    dx = dx * distToMain * this.options.distToMainWeight;
-    dy = dy * distToMain * this.options.distToMainWeight;
+    d = d.scale(1 / Math.pow(Math.log2(distToMain / 500 + 2), 2));
 
-    if (Math.abs(prevDxValue - dx) > this.options.dLimit) {
-      dx = drawNear(prevDxValue, dx, this.options.limitAcc);
+    const prevD = new Point(prevDxValue, prevDyValue);
+    d = d.add(prevD.subtract(d).scale(0.8));
+
+    /*
+    if (d.magnitude() > this.options.maxD) {
+      d = d.setMagnitude(this.options.maxD);
     }
+    */
 
-    if (Math.abs(prevDyValue - dy) > this.options.dLimit) {
-      dy = drawNear(prevDyValue, dy, this.options.limitAcc);
-    }
-
-    prevDx[i][j] = limitAbs(dx, this.options.maxD);
-    prevDy[i][j] = limitAbs(dy, this.options.maxD);
+    this.prevDx[i][j] = d.x;
+    this.prevDy[i][j] = d.y;
   }
 
   updatePoints(mainPoint: Point) {
@@ -87,24 +80,19 @@ export class Grid {
   }
 
   private updatePoint(i: number, j: number, mainPoint: Point) {
-    const prevDx = this.prevDx;
-    const prevDy = this.prevDy;
-    const grid = this.grid;
-
-    const p = grid[i][j];
+    const p = this.grid[i][j];
     const restPosition = this.restPosition(i, j, mainPoint);
 
-    this.updateDifferentials(i, j, p, restPosition, mainPoint);
+    this.updateOffsets(i, j, p, restPosition, mainPoint);
 
-    p.setCoordinates(p.x + prevDx[i][j], p.y + prevDy[i][j]);
+    p.setCoordinates(p.x + this.prevDx[i][j], p.y + this.prevDy[i][j]);
 
-    const diff = p.subtract(restPosition);
+    /*
+    const dir = p.subtract(restPosition);
 
-    if (
-      diff.magnitude() > this.options.eps &&
-      diff.magnitude() > this.options.maxDist
-    ) {
-      p.assign(restPosition.add(diff.normalize().scale(this.options.maxDist)));
+    if (dir.magnitude() > this.options.maxDist) {
+      p.assign(restPosition.add(dir.setMagnitude(this.options.maxDist)));
     }
+    */
   }
 }

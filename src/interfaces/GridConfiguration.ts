@@ -8,7 +8,6 @@ export interface GridConfiguration {
 
   // TODO: Rename speed parameter????
   speed: number;
-  eps: number;
   maxDist: number;
   dLimit: number;
   limitAcc: number;
