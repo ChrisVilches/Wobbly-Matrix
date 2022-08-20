@@ -59,7 +59,7 @@ export class Grid {
     d = d.scale(1 / Math.pow(Math.log2(distToMain / 500 + 2), 2));
 
     const prevD = new Point(prevDxValue, prevDyValue);
-    d = d.add(prevD.subtract(d).scale(0.8));
+    d = d.add(prevD.subtract(d).scale(0.88));
 
     /*
     if (d.magnitude() > this.options.maxD) {

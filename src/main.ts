@@ -24,10 +24,7 @@ function loop() {
   update();
 
   canvasRenderer.draw(grid, mainPoint);
-
-  setTimeout(() => {
-    window.requestAnimationFrame(loop);
-  }, 30);
+  window.requestAnimationFrame(loop);
 }
 
 function mouseMoveHandle(e: MouseEvent) {
