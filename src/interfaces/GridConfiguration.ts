@@ -5,12 +5,6 @@ export interface GridConfiguration {
   rows: number;
   cols: number;
   cellSize: number;
-
-  // TODO: Rename speed parameter????
-  speed: number;
-  maxDist: number;
-  dLimit: number;
-  limitAcc: number;
-  distToMainWeight: number;
-  maxD: number;
+  distWeight: number;
+  elasticity: number;
 }

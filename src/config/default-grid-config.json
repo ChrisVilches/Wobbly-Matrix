@@ -1,15 +1,11 @@
 {
-  "speed": 50,
   "cellSize": 150,
-  "limitAcc": 1.5,
-  "dLimit": 1.2,
-  "rows": 8,
-  "cols": 8,
-  "distToMainWeight": 0.125,
-  "maxD": 100,
+  "rows": 7,
+  "cols": 7,
   "centerCell": {
-    "row": 2,
-    "col": 2
+    "row": 3,
+    "col": 3
   },
-  "maxDist": 76
+  "distWeight": 0.002,
+  "elasticity": 0.89
 }

@@ -56,16 +56,12 @@ export class Grid {
 
     let d = restPosition.subtract(point);
 
-    d = d.scale(1 / Math.pow(Math.log2(distToMain / 500 + 2), 2));
+    d = d.scale(
+      1 / Math.pow(Math.log2(distToMain * this.options.distWeight + 2), 2)
+    );
 
     const prevD = new Point(prevDxValue, prevDyValue);
-    d = d.add(prevD.subtract(d).scale(0.88));
-
-    /*
-    if (d.magnitude() > this.options.maxD) {
-      d = d.setMagnitude(this.options.maxD);
-    }
-    */
+    d = d.add(prevD.subtract(d).scale(this.options.elasticity));
 
     this.prevDx[i][j] = d.x;
     this.prevDy[i][j] = d.y;
@@ -86,13 +82,5 @@ export class Grid {
     this.updateOffsets(i, j, p, restPosition, mainPoint);
 
     p.setCoordinates(p.x + this.prevDx[i][j], p.y + this.prevDy[i][j]);
-
-    /*
-    const dir = p.subtract(restPosition);
-
-    if (dir.magnitude() > this.options.maxDist) {
-      p.assign(restPosition.add(dir.setMagnitude(this.options.maxDist)));
-    }
-    */
   }
 }
