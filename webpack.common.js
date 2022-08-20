@@ -24,5 +24,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      '@classes': path.resolve(__dirname, 'src/classes'),
+      '@interfaces': path.resolve(__dirname, 'src/interfaces'),
+      '@config': path.resolve(__dirname, 'src/config'),
+    },
   },
 };

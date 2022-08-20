@@ -1,4 +1,4 @@
-import {Cell} from './Cell';
+import {Cell} from '@interfaces/Cell';
 
 export interface GridConfiguration {
   centerCell: Cell;

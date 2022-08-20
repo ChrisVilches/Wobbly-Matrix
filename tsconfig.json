@@ -8,7 +8,18 @@
       "DOM"
     ],
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@classes/*": [
+        "./src/classes/*"
+      ],
+      "@interfaces/*": [
+        "./src/interfaces/*"
+      ],
+      "@config/*": [
+        "./src/config/*"
+      ]
+    }
   },
   "include": [
     "src/**/*.ts",

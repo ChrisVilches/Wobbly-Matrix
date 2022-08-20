@@ -1,7 +1,7 @@
-import {Point} from './Point';
-import {CanvasRenderer} from './CanvasRenderer';
-import {Grid} from './Grid';
-import config from './default-grid-config.json';
+import {Point} from '@classes/Point';
+import {CanvasRenderer} from '@classes/CanvasRenderer';
+import {Grid} from '@classes/Grid';
+import config from '@config/default-grid-config.json';
 
 let canvasRenderer: CanvasRenderer;
 
@@ -25,12 +25,13 @@ function loop() {
 
   canvasRenderer.draw(grid, mainPoint);
 
-  window.requestAnimationFrame(loop);
+  setTimeout(() => {
+    window.requestAnimationFrame(loop);
+  }, 100);
 }
 
 function mouseMoveHandle(e: MouseEvent) {
-  mousePos.x = e.clientX;
-  mousePos.y = e.clientY;
+  mousePos.setCoordinates(e.clientX, e.clientY)
 }
 
 function createCanvasElement(): HTMLCanvasElement {

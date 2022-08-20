@@ -1,6 +1,6 @@
-import {Point} from './Point';
-import {drawNear, limitAbs} from './util';
-import {GridConfiguration} from './GridConfiguration';
+import {Point} from '@classes/Point';
+import {GridConfiguration} from '@interfaces/GridConfiguration';
+import {drawNear, limitAbs} from '../util';
 
 export class Grid {
   readonly grid: Point[][] = [];

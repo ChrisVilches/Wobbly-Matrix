@@ -1,16 +1,16 @@
-import {Point} from './Point';
-import {Grid} from './Grid';
+import {Point} from '@classes/Point';
+import {Grid} from '@classes/Grid';
+import {ColorPalette} from '@interfaces/ColorPalette';
+import colorsJson from '@config/render-colors.json';
+
+const colors = <ColorPalette>colorsJson;
 
 export class CanvasRenderer {
   private canvas: HTMLCanvasElement;
-  readonly width: number;
-  readonly height: number;
   private ctx: CanvasRenderingContext2D;
 
   constructor(canvasElement: HTMLCanvasElement) {
     this.canvas = canvasElement;
-    this.width = this.canvas.width;
-    this.height = this.canvas.height;
     this.ctx = this.canvas.getContext('2d')!;
   }
 
@@ -18,7 +18,7 @@ export class CanvasRenderer {
     const ctx = this.ctx;
     const size = 5;
     ctx.beginPath();
-    ctx.strokeStyle = '#000000';
+    ctx.strokeStyle = colors.gridSegment;
     ctx.moveTo(p1.x - size / 2, p1.y - size / 2);
     ctx.lineTo(p2.x - size / 2, p2.y - size / 2);
     ctx.stroke();
@@ -36,21 +36,19 @@ export class CanvasRenderer {
 
   draw(gridInstance: Grid, mainPoint: Point): void {
     const ctx = this.ctx;
-    const width = this.width;
-    const height = this.height;
     const grid = gridInstance.grid as Point[][];
     const rows = gridInstance.rows;
     const cols = gridInstance.cols;
 
-    ctx.clearRect(0, 0, width, height);
+    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
-        this.drawCircle(grid[i][j], 15, '#000088');
+        this.drawCircle(grid[i][j], 10, colors.gridPoints);
       }
     }
 
-    this.drawCircle(mainPoint, 10, '#990000');
+    this.drawCircle(mainPoint, 5, colors.centerPoint);
 
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
