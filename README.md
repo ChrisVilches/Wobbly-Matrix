@@ -4,28 +4,41 @@
 
 [![Code Style: Google](https://img.shields.io/badge/code%20style-google-blueviolet.svg)](https://github.com/google/gts)
 
+[Live demo](https://wobbly-matrix.netlify.app/)
+
 ## What is this?
 
 A geometric algorithm inspired by Ubuntu's wobbly windows.
 
-Animated example:
-
-![](wobble-example2.gif)
-
 ## How to use
 
-1. Clone or download.
-2. Open `index.html`.
-3. Move mouse to make it wobble.
-4. (Optional) Configure `config.js` to create different effects.
+Clone repository, then execute:
+
+```
+npm install
+npm run dev
+```
+
+This starts the development server.
+
+Build the production distribution with:
+
+```
+npm run build
+```
 
 ## Future work
+
+### UI Configuration
+
+As of now, the matrix cannot be configured from the UI.
+
+For now, the matrix (size, speed of movement, etc) can only be configured from the source code by modifying the file:
+
+`src/config/default-grid-config.json`
+
+### Image mapping
 
 Map the matrix to an image and perform transformations to make the image wobble.
 
 For example: https://open.gl/transformations
-
-## Limitations
-
-1. The movement might look bad if it's not properly configured.
-2. The mechanism that prevents grid deformation doesn't work (it should wobble, but still be a grid. Sometimes it becomes an entirely different shape).
