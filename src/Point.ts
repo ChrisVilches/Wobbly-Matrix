@@ -10,7 +10,6 @@ export class Point {
   }
 
   static fromJson(obj: PointCoordinates) {
-    // TODO: Add interface
     return new Point(obj.x, obj.y);
   }
 

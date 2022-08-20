@@ -6,7 +6,9 @@
     "lib": [
       "ES2015",
       "DOM"
-    ]
+    ],
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*.ts",
