@@ -5,7 +5,8 @@
       "error",
       {
         "allowModules": [
-          "html-webpack-plugin"
+          "html-webpack-plugin",
+          "webpack-merge"
         ]
       }
     ]
