@@ -1,44 +1,50 @@
 import {Point} from '@classes/Point';
+import {Cell} from '@interfaces/Cell';
 import {GridConfiguration} from '@interfaces/GridConfiguration';
 
 export class Grid {
   readonly grid: Point[][] = [];
-
-  // TODO: Consider using a matrix of "vectors", not two matrices of independent X, Y values.
-  private prevDx: number[][] = [];
-  private prevDy: number[][] = [];
-  private options: GridConfiguration;
+  readonly rows: number;
+  readonly cols: number;
+  private prevD: Point[][] = [];
+  private _distWeight: number;
+  private _elasticity: number;
+  private cellSize: number;
+  private centerCell: Cell;
 
   constructor(options: GridConfiguration) {
-    this.options = options;
+    this._distWeight = options.distWeight;
+    this._elasticity = options.elasticity;
+    this.cellSize = options.cellSize;
+    this.centerCell = options.centerCell;
+    this.rows = options.rows;
+    this.cols = options.cols;
     this.initialize();
   }
 
-  get rows() {
-    return this.options.rows;
+  set elasticity(e: number) {
+    this._elasticity = e;
   }
 
-  get cols() {
-    return this.options.cols;
+  set distWeight(w: number) {
+    this._distWeight = w;
   }
 
   private initialize() {
     for (let i = 0; i < this.rows; i++) {
       this.grid.push([]);
-      this.prevDx.push([]);
-      this.prevDy.push([]);
+      this.prevD.push([]);
       for (let j = 0; j < this.cols; j++) {
         this.grid[i].push(this.restPosition(i, j, new Point(0, 0)));
-        this.prevDx[i].push(0);
-        this.prevDy[i].push(0);
+        this.prevD[i].push(new Point(0, 0));
       }
     }
   }
 
   private restPosition(i: number, j: number, mainPoint: Point) {
     return new Point(
-      mainPoint.x - this.options.cellSize * (this.options.centerCell.col - j),
-      mainPoint.y - this.options.cellSize * (this.options.centerCell.row - i)
+      mainPoint.x - this.cellSize * (this.centerCell.col - j),
+      mainPoint.y - this.cellSize * (this.centerCell.row - i)
     );
   }
 
@@ -49,25 +55,17 @@ export class Grid {
     restPosition: Point,
     mainPoint: Point
   ) {
-    const prevDxValue = this.prevDx[i][j];
-    const prevDyValue = this.prevDy[i][j];
+    const d1 = this.prevD[i][j];
 
-    const distToMain = mainPoint.dist(point);
+    const dist = mainPoint.dist(point);
 
-    let d = restPosition.subtract(point);
+    const factor = 1 / Math.log2(dist * this._distWeight + 2) ** 2;
 
-    d = d.scale(
-      1 / Math.pow(Math.log2(distToMain * this.options.distWeight + 2), 2)
-    );
-
-    const prevD = new Point(prevDxValue, prevDyValue);
-    d = d.add(prevD.subtract(d).scale(this.options.elasticity));
-
-    this.prevDx[i][j] = d.x;
-    this.prevDy[i][j] = d.y;
+    const d2 = restPosition.subtract(point).scale(factor);
+    this.prevD[i][j] = d2.add(d1.subtract(d2).scale(this._elasticity));
   }
 
-  updatePoints(mainPoint: Point) {
+  update(mainPoint: Point) {
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
         this.updatePoint(i, j, mainPoint);
@@ -81,6 +79,6 @@ export class Grid {
 
     this.updateOffsets(i, j, p, restPosition, mainPoint);
 
-    p.setCoordinates(p.x + this.prevDx[i][j], p.y + this.prevDy[i][j]);
+    this.grid[i][j] = p.add(this.prevD[i][j]);
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "wobbly-matrix",
   "version": "2.0.0",
-  "description": "## What is this?",
+  "description": "A geometric algorithm inspired by Ubuntu's wobbly windows.",
   "private": true,
   "scripts": {
     "lint": "gts lint",

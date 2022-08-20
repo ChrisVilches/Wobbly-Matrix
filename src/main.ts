@@ -17,7 +17,7 @@ function updatemainPoint() {
 
 function update() {
   updatemainPoint();
-  grid.updatePoints(mainPoint);
+  grid.update(mainPoint);
 }
 
 function loop() {
