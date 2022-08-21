@@ -37,10 +37,16 @@ export const HomePage = (): ReactElement => {
       <div className="grid grid-cols-12 gap-12">
         <div className={`md:col-span-${cols} col-span-12`}>
           <GridWrapper
-          elasticity={scaleElasticity(elasticity)}
-          distWeight={scaleDistWeight(distWeight)}
-          rows={matrixSize}
-          cols={matrixSize}/>
+            elasticity={scaleElasticity(elasticity)}
+            distWeight={scaleDistWeight(distWeight)}
+            rows={matrixSize}
+            cols={matrixSize}/>
+
+          <div className="mt-4">
+            <button className="md:inline hidden btn btn-primary" onClick={() => setEnlarged(!enlarged)}>
+              <ZoomIcon zoomedIn={enlarged}/>
+            </button>
+          </div>
         </div>
         <div className={`md:col-span-${12 - cols} col-span-12`}>
           <TipBox text='For both parameters, the higher, the wobblier.'/>
@@ -60,12 +66,6 @@ export const HomePage = (): ReactElement => {
             Reset
           </button>
         </div>
-      </div>
-
-      <div className="mt-4">
-        <button className="md:inline hidden btn btn-primary" onClick={() => setEnlarged(!enlarged)}>
-          <ZoomIcon zoomedIn={enlarged}/>
-        </button>
       </div>
     </div>
   )
