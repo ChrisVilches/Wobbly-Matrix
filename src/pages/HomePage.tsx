@@ -22,6 +22,7 @@ export const HomePage = (): ReactElement => {
   const [elasticity, setElasticity] = useState(defaultValues.elasticity)
   const [distWeight, setDistWeight] = useState(defaultValues.distWeight)
   const [matrixSize, setMatrixSize] = useState(defaultValues.matrixSize)
+  const [frameLimit, setFrameLimit] = useState(false)
   const [enlarged, setEnlarged] = useState(false)
 
   const reset = (): void => {
@@ -45,6 +46,7 @@ export const HomePage = (): ReactElement => {
           <GridWrapper
             elasticity={scaleElasticity(elasticity)}
             distWeight={scaleDistWeight(distWeight)}
+            frameLimit={frameLimit}
             rows={matrixSize}
             cols={matrixSize}/>
 
@@ -52,6 +54,15 @@ export const HomePage = (): ReactElement => {
             <button className="md:inline hidden btn btn-primary" onClick={() => setEnlarged(!enlarged)}>
               <ZoomIcon zoomedIn={enlarged}/>
             </button>
+
+            <label className="form-check-label inline-block text-gray-800 float-right">
+              <input
+                defaultChecked={frameLimit}
+                onClick={() => setFrameLimit(!frameLimit)}
+                type="checkbox"
+                className="rounded-full shadow-xl bg-blue-100 border-blue-300 text-blue-400 focus:ring-blue-200 mr-3"/>
+              Limit framerate
+            </label>
           </div>
         </div>
         <div className={colsRightStr}>
@@ -68,6 +79,7 @@ export const HomePage = (): ReactElement => {
           <button className="btn btn-secondary" onClick={() => setMatrixSize(matrixSize + 1)}>+</button>
 
           <div className="clear-both my-10"></div>
+
           <button className="btn btn-danger" onClick={reset}>
             Reset
           </button>

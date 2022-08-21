@@ -7,6 +7,7 @@ import config from '@config/default-grid-config.json'
 export interface GridWrapperProps {
   elasticity: number
   distWeight: number
+  frameLimit: boolean
   rows: number
   cols: number
 }
@@ -78,7 +79,13 @@ export class GridWrapper extends React.Component {
   private loop (): void {
     this.update();
     (this.canvasRenderer as CanvasRenderer).draw(this.grid as Grid, this.mainPoint)
-    window.requestAnimationFrame(this.loop.bind(this))
+
+    if (this.props.frameLimit) {
+      // TODO: Do a more proper frame limit? (This works fine though).
+      setTimeout(() => window.requestAnimationFrame(this.loop.bind(this)), 50)
+    } else {
+      window.requestAnimationFrame(this.loop.bind(this))
+    }
   }
 
   componentWillUnmount (): void {
@@ -91,6 +98,10 @@ export class GridWrapper extends React.Component {
   }
 
   shouldComponentUpdate (nextProps: GridWrapperProps): boolean {
+    // TODO: Grid fields shouldn't be updated here, but for now this seems to be the most efficient
+    //       way to get the props, but without re-rendering the component.
+    //       I think the best way to go about this would be to simply conditionally
+    //       rebuild the matrix only if the size changed, but not if anything else did (but do return true).
     const grid = this.grid as Grid
     grid.elasticity = nextProps.elasticity
     grid.distWeight = nextProps.distWeight
