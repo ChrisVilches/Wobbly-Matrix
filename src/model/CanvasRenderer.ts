@@ -29,7 +29,6 @@ export class CanvasRenderer {
     ctx.arc(p.x, p.y, radius, 0, 2 * Math.PI, false)
     ctx.fillStyle = color
     ctx.fill()
-    ctx.stroke()
   }
 
   draw (gridInstance: Grid, mainPoint: Point): void {
@@ -39,14 +38,6 @@ export class CanvasRenderer {
     const cols = gridInstance.cols
 
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-
-    for (let i = 0; i < rows; i++) {
-      for (let j = 0; j < cols; j++) {
-        this.drawCircle(grid[i][j], gridRendering.sizes.gridCircle, gridRendering.colors.gridPoints)
-      }
-    }
-
-    this.drawCircle(mainPoint, gridRendering.sizes.cursorCircle, gridRendering.colors.centerPoint)
 
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
@@ -61,5 +52,13 @@ export class CanvasRenderer {
         }
       }
     }
+
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        this.drawCircle(grid[i][j], gridRendering.sizes.gridCircle, gridRendering.colors.gridPoints)
+      }
+    }
+
+    this.drawCircle(mainPoint, gridRendering.sizes.cursorCircle, gridRendering.colors.centerPoint)
   }
 }
