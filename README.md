@@ -1,4 +1,4 @@
-# Wobbly matrix
+# Wobbly Matrix
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/220699b2-33e8-41ea-aab0-0cf7befd2a47/deploy-status)](https://app.netlify.com/sites/wobbly-matrix/deploys)
 
