@@ -56,19 +56,14 @@ export class Grid {
     )
   }
 
-  private updateOffsets (
-    i: number,
-    j: number,
-    point: Point,
-    restPosition: Point,
-    mainPoint: Point
-  ): void {
+  private updateOffsets (i: number, j: number, point: Point, mainPoint: Point): void {
     const d1 = this.prevD[i][j]
 
     const dist = mainPoint.dist(point)
 
     const factor = 1 / Math.log2(dist * this._distWeight + 2) ** 2
 
+    const restPosition = this.restPosition(i, j, mainPoint)
     const d2 = restPosition.subtract(point).scale(factor)
     this.prevD[i][j] = d2.add(d1.subtract(d2).scale(this._elasticity))
   }
@@ -83,10 +78,7 @@ export class Grid {
 
   private updatePoint (i: number, j: number, mainPoint: Point): void {
     const p = this.grid[i][j]
-    const restPosition = this.restPosition(i, j, mainPoint)
-
-    this.updateOffsets(i, j, p, restPosition, mainPoint)
-
+    this.updateOffsets(i, j, p, mainPoint)
     this.grid[i][j] = p.add(this.prevD[i][j])
   }
 }
