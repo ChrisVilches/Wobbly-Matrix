@@ -1,17 +1,8 @@
 import React, { useState, ReactElement } from 'react'
-import { GridWrapper } from '../components/GridWrapper'
-import Slider from 'rc-slider'
-import 'rc-slider/assets/index.css'
 import { TipBox } from '@components/TipBox'
-import { ZoomIcon } from '@components/ZoomIcon'
+import { ConfigurationForm } from '@components/ConfigurationForm'
+import { VisualizationPane } from '@components/VisualizationPane'
 
-const scale = (min: number, max: number, n: number): number => {
-  const length = max - min
-  return min + (length * n / 100)
-}
-
-const scaleElasticity = (n: number): number => scale(0.1, 0.99, n)
-const scaleDistWeight = (n: number): number => scale(0.0001, 0.003, n)
 const defaultValues = {
   elasticity: 90,
   distWeight: 85,
@@ -43,46 +34,12 @@ export const HomePage = (): ReactElement => {
     <div style={{ margin: '50px' }}>
       <div className="grid grid-cols-12 gap-12">
         <div className={colsLeftStr}>
-          <GridWrapper
-            elasticity={scaleElasticity(elasticity)}
-            distWeight={scaleDistWeight(distWeight)}
-            frameLimit={frameLimit}
-            rows={matrixSize}
-            cols={matrixSize}/>
-
-          <div className="mt-4">
-            <button className="md:inline hidden btn btn-primary" onClick={() => setEnlarged(!enlarged)}>
-              <ZoomIcon zoomedIn={enlarged}/>
-            </button>
-
-            <label className="form-check-label inline-block text-gray-800 float-right">
-              <input
-                defaultChecked={frameLimit}
-                onClick={() => setFrameLimit(!frameLimit)}
-                type="checkbox"
-                className="rounded-full shadow-xl bg-blue-100 border-blue-300 text-blue-400 focus:ring-blue-200 mr-3"/>
-              Limit framerate
-            </label>
-          </div>
+          <VisualizationPane {...{ elasticity, distWeight, matrixSize, frameLimit, setFrameLimit, enlarged, setEnlarged }}/>
         </div>
         <div className={colsRightStr}>
           <TipBox text='For both parameters, the higher, the wobblier.'/>
 
-          <div className="parameter-label">Elasticity</div>
-          <Slider onChange={val => setElasticity(val as number)} value={elasticity}/>
-
-          <div className="parameter-label">Deformation</div>
-          <Slider onChange={val => setDistWeight(val as number)} value={distWeight}/>
-
-          <div className="parameter-label">Matrix size ({matrixSize} x {matrixSize})</div>
-          <button className="btn btn-secondary" onClick={() => setMatrixSize(matrixSize - 1)} disabled={matrixSize === 1}>-</button>
-          <button className="btn btn-secondary" onClick={() => setMatrixSize(matrixSize + 1)}>+</button>
-
-          <div className="clear-both my-10"></div>
-
-          <button className="btn btn-danger" onClick={reset}>
-            Reset
-          </button>
+          <ConfigurationForm {...{ elasticity, setElasticity, distWeight, setDistWeight, matrixSize, setMatrixSize, reset }}/>
         </div>
       </div>
     </div>
