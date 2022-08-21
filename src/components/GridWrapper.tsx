@@ -24,6 +24,8 @@ export class GridWrapper extends React.Component {
     super(props)
     this.props = props
     console.log('Constructing GridWrapper')
+
+    this.mouseMoveHandle = this.mouseMoveHandle.bind(this)
   }
 
   private mouseMoveHandle (e: MouseEvent): void {
@@ -33,15 +35,27 @@ export class GridWrapper extends React.Component {
     this.mousePos.setCoordinates(x, y)
   }
 
-  private buildGrid (): void {
-    const { elasticity, distWeight, rows, cols } = this.props
-
+  private resetFollowPoints (): void {
     const canvas = this.canvasElement as HTMLCanvasElement
     const x = canvas.width / 2
     const y = canvas.height / 2
 
     this.mainPoint = new Point(x, y)
     this.mousePos = new Point(x, y)
+  }
+
+  private buildGrid (rebuild: boolean = true): void {
+    const { elasticity, distWeight, rows, cols } = this.props
+
+    if (!rebuild) {
+      const g = this.grid as Grid
+      g.elasticity = elasticity
+      g.distWeight = distWeight
+      return
+    }
+
+    this.resetFollowPoints()
+
     this.grid = new Grid({
       ...config,
       rows,
@@ -61,7 +75,7 @@ export class GridWrapper extends React.Component {
     this.buildGrid()
     const canvas = this.canvasElement as HTMLCanvasElement
     this.canvasRenderer = new CanvasRenderer(canvas)
-    canvas.addEventListener('mousemove', this.mouseMoveHandle.bind(this))
+    canvas.addEventListener('mousemove', this.mouseMoveHandle)
 
     this.loop()
   }
@@ -81,35 +95,28 @@ export class GridWrapper extends React.Component {
     (this.canvasRenderer as CanvasRenderer).draw(this.grid as Grid, this.mainPoint)
 
     if (this.props.frameLimit) {
-      // TODO: Do a more proper frame limit? (This works fine though).
       setTimeout(() => window.requestAnimationFrame(this.loop.bind(this)), 50)
     } else {
       window.requestAnimationFrame(this.loop.bind(this))
     }
   }
 
+  private removeMouseListener (): void {
+    console.log('Removing event')
+    const canvas = this.canvasElement as HTMLCanvasElement
+    canvas.removeEventListener('mousemove', this.mouseMoveHandle)
+  }
+
   componentWillUnmount (): void {
-    // TODO: Remove event listeners added in this component.
+    console.log('Unmounted')
+    this.removeMouseListener()
   }
 
-  componentDidUpdate (): void {
+  componentDidUpdate (prevProps: GridWrapperProps): void {
     console.log('Grid Wrapper Component was updated...')
-    this.buildGrid()
-  }
 
-  shouldComponentUpdate (nextProps: GridWrapperProps): boolean {
-    // TODO: Grid fields shouldn't be updated here, but for now this seems to be the most efficient
-    //       way to get the props, but without re-rendering the component.
-    //       I think the best way to go about this would be to simply conditionally
-    //       rebuild the matrix only if the size changed, but not if anything else did (but do return true).
-    const grid = this.grid as Grid
-    grid.elasticity = nextProps.elasticity
-    grid.distWeight = nextProps.distWeight
-
-    const { rows, cols } = this.props
-
-    if (rows !== nextProps.rows || cols !== nextProps.cols) return true
-    return false
+    const rebuild = prevProps.cols !== this.props.cols || prevProps.rows !== this.props.rows
+    this.buildGrid(rebuild)
   }
 
   render (): ReactElement {
