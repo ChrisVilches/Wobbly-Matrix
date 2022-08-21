@@ -12,11 +12,11 @@ A geometric algorithm inspired by Ubuntu's wobbly windows.
 
 ## How to use
 
-Clone repository, then execute:
+Clone the repository, then execute:
 
 ```
 npm install
-npm run dev
+npm run start
 ```
 
 This starts the development server.
@@ -28,14 +28,6 @@ npm run build
 ```
 
 ## Future work
-
-### UI Configuration
-
-As of now, the matrix cannot be configured from the UI.
-
-For now, the matrix (size, speed of movement, etc) can only be configured from the source code by modifying the file:
-
-`src/config/default-grid-config.json`
 
 ### Image mapping
 

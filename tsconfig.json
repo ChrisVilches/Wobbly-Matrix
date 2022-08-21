@@ -1,28 +1,47 @@
 {
-  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
-    "rootDir": ".",
-    "declaration": false,
+    "target": "es5",
     "lib": [
-      "ES2015",
-      "DOM"
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
-    "resolveJsonModule": true,
+    "allowJs": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
     "paths": {
-      "@classes/*": [
-        "./src/classes/*"
+      "@model/*": [
+        "./model/*"
       ],
       "@interfaces/*": [
-        "./src/interfaces/*"
+        "./interfaces/*"
       ],
       "@config/*": [
-        "./src/config/*"
+        "./config/*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@pages/*": [
+        "./pages/*"
+      ],
+      "@hooks/*": [
+        "./hooks/*"
       ]
     }
   },
   "include": [
-    "src/**/*.ts",
-    "test/**/*.ts"
+    "src"
   ]
 }

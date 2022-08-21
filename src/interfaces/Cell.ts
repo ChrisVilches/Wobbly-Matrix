@@ -1,4 +1,4 @@
 export interface Cell {
-  row: number;
-  col: number;
+  row: number
+  col: number
 }
