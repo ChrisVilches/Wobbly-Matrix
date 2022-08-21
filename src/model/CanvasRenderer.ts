@@ -58,7 +58,5 @@ export class CanvasRenderer {
         this.drawCircle(grid[i][j], gridRendering.sizes.gridCircle, gridRendering.colors.gridPoints)
       }
     }
-
-    this.drawCircle(mainPoint, gridRendering.sizes.cursorCircle, gridRendering.colors.centerPoint)
   }
 }

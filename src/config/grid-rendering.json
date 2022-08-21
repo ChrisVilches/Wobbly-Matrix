@@ -1,11 +1,9 @@
 {
   "colors": {
     "gridPoints": "#000088",
-    "centerPoint": "#990000",
     "gridSegment": "#000000"
   },
   "sizes": {
-    "gridCircle": 5,
-    "cursorCircle": 3
+    "gridCircle": 5
   }
 }
