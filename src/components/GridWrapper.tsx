@@ -27,17 +27,20 @@ export class GridWrapper extends React.Component {
 
   private mouseMoveHandle (e: MouseEvent): void {
     const canvas: HTMLCanvasElement = e.currentTarget as HTMLCanvasElement
-    const rect = canvas.getBoundingClientRect()
-
-    this.mousePos.setCoordinates(e.clientX - rect.left, e.clientY - rect.top)
+    const x = e.offsetX * canvas.width / canvas.clientWidth
+    const y = e.offsetY * canvas.height / canvas.clientHeight
+    this.mousePos.setCoordinates(x, y)
   }
 
   private buildGrid (): void {
     const { elasticity, distWeight, rows, cols } = this.props
 
-    // TODO: Initialize grid centered by modifying these two points.
-    this.mainPoint = new Point(0, 0)
-    this.mousePos = new Point(0, 0)
+    const canvas = this.canvasElement as HTMLCanvasElement
+    const x = canvas.width / 2
+    const y = canvas.height / 2
+
+    this.mainPoint = new Point(x, y)
+    this.mousePos = new Point(x, y)
     this.grid = new Grid({
       ...config,
       rows,
@@ -48,7 +51,8 @@ export class GridWrapper extends React.Component {
       },
       elasticity,
       distWeight
-    })
+    },
+    this.mainPoint)
   }
 
   componentDidMount (): void {
@@ -57,6 +61,7 @@ export class GridWrapper extends React.Component {
     const canvas = this.canvasElement as HTMLCanvasElement
     this.canvasRenderer = new CanvasRenderer(canvas)
     canvas.addEventListener('mousemove', this.mouseMoveHandle.bind(this))
+
     this.loop()
   }
 
@@ -77,7 +82,7 @@ export class GridWrapper extends React.Component {
   }
 
   componentWillUnmount (): void {
-    // TODO: Remove event listeners
+    // TODO: Remove event listeners added in this component.
   }
 
   componentDidUpdate (): void {
@@ -99,9 +104,9 @@ export class GridWrapper extends React.Component {
   render (): ReactElement {
     return (
       <canvas
-        width={800}
-        height={800}
-        style={{ border: '1px solid black' }}
+        height={1000}
+        width={1000}
+        className="w-full border-2"
         ref={(ref: HTMLCanvasElement) => { this.canvasElement = ref }}/>
     )
   }

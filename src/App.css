@@ -1,5 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
   text-align: center;
+}
+
+.btn {
+  @apply rounded;
+  @apply px-3;
+  @apply py-2;
+  @apply m-1;
+  @apply border-b-4;
+  @apply border-l-2;
+  @apply shadow-lg;
+}
+
+.parameter-label {
+  @apply font-semibold;
+  @apply my-2;
+}
+
+.btn-primary {
+  @apply bg-blue-600;
+  @apply border-blue-800;
+  @apply text-white;
+}
+
+.btn-secondary {
+  @apply bg-gray-200;
+  @apply border-gray-400;
+  @apply text-black;
+}
+
+.btn-danger {
+  @apply bg-red-400;
+  @apply border-red-500;
+  @apply text-white;
 }
 
 .App-logo {

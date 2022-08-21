@@ -12,14 +12,14 @@ export class Grid {
   private readonly cellSize: number
   private readonly centerCell: Cell
 
-  constructor (options: GridConfiguration) {
+  constructor (options: GridConfiguration, mainPoint: Point = new Point(0, 0)) {
     this._distWeight = options.distWeight
     this._elasticity = options.elasticity
     this.cellSize = options.cellSize
     this.centerCell = options.centerCell
     this.rows = options.rows
     this.cols = options.cols
-    this.initialize()
+    this.initialize(mainPoint)
   }
 
   set elasticity (e: number) {
@@ -38,12 +38,12 @@ export class Grid {
     return this._distWeight
   }
 
-  private initialize (): void {
+  private initialize (mainPoint: Point): void {
     for (let i = 0; i < this.rows; i++) {
       this.grid.push([])
       this.prevD.push([])
       for (let j = 0; j < this.cols; j++) {
-        this.grid[i].push(this.restPosition(i, j, new Point(0, 0)))
+        this.grid[i].push(this.restPosition(i, j, mainPoint))
         this.prevD[i].push(new Point(0, 0))
       }
     }
