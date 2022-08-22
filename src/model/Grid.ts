@@ -7,35 +7,19 @@ export class Grid {
   readonly rows: number
   readonly cols: number
   private readonly prevD: Point[][] = []
-  private _distWeight: number
-  private _elasticity: number
   private readonly cellSize: number
   private readonly centerCell: Cell
+  distWeight: number
+  elasticity: number
 
   constructor (options: GridConfiguration, mainPoint: Point = new Point(0, 0)) {
-    this._distWeight = options.distWeight
-    this._elasticity = options.elasticity
+    this.distWeight = options.distWeight
+    this.elasticity = options.elasticity
     this.cellSize = options.cellSize
     this.centerCell = options.centerCell
     this.rows = options.rows
     this.cols = options.cols
     this.initialize(mainPoint)
-  }
-
-  set elasticity (e: number) {
-    this._elasticity = e
-  }
-
-  get elasticity (): number {
-    return this._elasticity
-  }
-
-  set distWeight (w: number) {
-    this._distWeight = w
-  }
-
-  get distWeight (): number {
-    return this._distWeight
   }
 
   private initialize (mainPoint: Point): void {
@@ -61,11 +45,11 @@ export class Grid {
 
     const dist = mainPoint.dist(point)
 
-    const factor = 1 / Math.log2(dist * this._distWeight + 2) ** 2
+    const factor = 1 / Math.log2(dist * this.distWeight + 2) ** 2
 
     const restPosition = this.restPosition(i, j, mainPoint)
     const d2 = restPosition.subtract(point).scale(factor)
-    this.prevD[i][j] = d2.add(d1.subtract(d2).scale(this._elasticity))
+    this.prevD[i][j] = d2.add(d1.subtract(d2).scale(this.elasticity))
   }
 
   update (mainPoint: Point): void {
