@@ -34,16 +34,19 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit }: 
   const grid: MutableRefObject<Grid | null> = useRef(null)
 
   const resetFollowPoints = (): void => {
+    console.log('Resetting points')
     const canvas = canvasElement.current!
-    mousePos.current!.set(canvas.width / 2, canvas.height / 2)
-    mainPoint.current!.set(canvas.width / 2, canvas.height / 2)
+    if (mainPoint.current === null || mousePos.current === null) {
+      mainPoint.current = new Point(0, 0)
+      mousePos.current = new Point(0, 0)
+    }
+    mousePos.current.set(canvas.width / 2, canvas.height / 2)
+    mainPoint.current.set(canvas.width / 2, canvas.height / 2)
   }
 
   useEffect(() => {
     console.log('Initializing data')
     canvasRenderer.current = new CanvasRenderer(canvasElement.current!)
-    mainPoint.current = new Point(0, 0)
-    mousePos.current = new Point(0, 0)
     return () => {
       console.log('<GridWrapper> Unmounted')
     }
@@ -53,6 +56,7 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit }: 
     const rebuild = grid?.current?.rows !== rows || grid?.current?.cols !== cols
 
     if (rebuild) {
+      console.log('Rebuilding grid')
       resetFollowPoints()
       const mainOpts = { ...config, rows, cols }
       const centerCell = {
