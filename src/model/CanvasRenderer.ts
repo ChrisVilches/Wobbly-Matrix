@@ -31,7 +31,7 @@ export class CanvasRenderer {
     ctx.fill()
   }
 
-  draw (gridInstance: Grid, mainPoint: Point): void {
+  draw (gridInstance: Grid): void {
     const ctx = this.ctx
     const grid = gridInstance.grid
     const rows = gridInstance.rows

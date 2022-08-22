@@ -71,7 +71,7 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit }: 
     main.x += (mouse.x - main.x) / 5
     main.y += (mouse.y - main.y) / 5
 
-    canvasRenderer.current!.draw(grid.current!, main)
+    canvasRenderer.current!.draw(grid.current!)
     grid.current!.update(main)
   })
 
