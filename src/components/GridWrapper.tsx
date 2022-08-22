@@ -39,7 +39,16 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit }: 
     mainPoint.current!.set(canvas.width / 2, canvas.height / 2)
   }
 
-  const setGrid = (rebuild: boolean): void => {
+  useEffect(() => {
+    console.log('Initializing data')
+    canvasRenderer.current = new CanvasRenderer(canvasElement.current!)
+    mainPoint.current = new Point(0, 0)
+    mousePos.current = new Point(0, 0)
+  }, [])
+
+  useEffect(() => {
+    const rebuild = grid?.current?.rows !== rows || grid?.current?.cols !== cols
+
     if (rebuild) {
       resetFollowPoints()
       const mainOpts = { ...config, rows, cols }
@@ -52,17 +61,7 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit }: 
 
     grid.current!.elasticity = elasticity
     grid.current!.distWeight = distWeight
-  }
-
-  useEffect(() => {
-    console.log('Initializing data')
-    canvasRenderer.current = new CanvasRenderer(canvasElement.current!)
-    mainPoint.current = new Point(0, 0)
-    mousePos.current = new Point(0, 0)
-  }, [])
-
-  useEffect(() => { setGrid(true) }, [rows, cols])
-  useEffect(() => { setGrid(false) }, [elasticity, distWeight])
+  }, [rows, cols, elasticity, distWeight])
 
   setMousePosition(useMouse(canvasElement, useMouseOpts as UseMouseOptions), canvasElement.current!, mousePos.current!)
 
