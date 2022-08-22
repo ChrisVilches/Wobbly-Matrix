@@ -7,12 +7,7 @@ export class Point {
     this.y = y
   }
 
-  assign (p: Point): void {
-    this.x = p.x
-    this.y = p.y
-  }
-
-  setCoordinates (x: number, y: number): void {
+  set (x: number, y: number): void {
     this.x = x
     this.y = y
   }
@@ -23,10 +18,6 @@ export class Point {
 
   subtract (p: Point): Point {
     return new Point(this.x - p.x, this.y - p.y)
-  }
-
-  magnitude (): number {
-    return Math.hypot(this.x, this.y)
   }
 
   scale (f: number): Point {

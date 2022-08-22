@@ -1,131 +1,88 @@
-import React, { ReactElement } from 'react'
+import React, { MutableRefObject, useEffect, useRef, ReactElement } from 'react'
 import { Point } from '@model/Point'
 import { CanvasRenderer } from '@model/CanvasRenderer'
 import { Grid } from '@model/Grid'
+import { useAnimationFrame } from '@hooks/useAnimationFrame'
 import config from '@config/default-grid-config.json'
+import useMouseOpts from '@config/use-mouse-options.json'
+import useMouse, { MousePosition, UseMouseOptions } from '@react-hook/mouse-position'
 
-export interface GridWrapperProps {
+interface GridWrapperProps {
   elasticity: number
   distWeight: number
-  frameLimit: boolean
   rows: number
   cols: number
+  frameLimit: boolean
 }
 
-export class GridWrapper extends React.Component {
-  private canvasElement?: HTMLCanvasElement
-  private mainPoint: Point = new Point(0, 0)
-  private mousePos: Point = new Point(0, 0)
-  private canvasRenderer?: CanvasRenderer
-  private grid?: Grid
-  props: GridWrapperProps
+const setMousePosition = (mousePositionResult: MousePosition, canvasElement: HTMLCanvasElement, mousePos: Point): void => {
+  let { x, y, elementWidth, elementHeight } = mousePositionResult
 
-  constructor (props: GridWrapperProps) {
-    super(props)
-    this.props = props
-    console.log('Constructing GridWrapper')
+  if (x === null || y === null) return
+  if (elementWidth === null || elementHeight === null) return
 
-    this.mouseMoveHandle = this.mouseMoveHandle.bind(this)
+  x *= canvasElement.width / elementWidth
+  y *= canvasElement.height / elementHeight
+  mousePos.set(x, y)
+}
+
+export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit }: GridWrapperProps): ReactElement => {
+  const canvasElement: MutableRefObject<HTMLCanvasElement | null> = useRef(null)
+  const canvasRenderer: MutableRefObject<CanvasRenderer | null> = useRef(null)
+  const mainPoint: MutableRefObject<Point | null> = useRef(null)
+  const mousePos: MutableRefObject<Point | null> = useRef(null)
+  const grid: MutableRefObject<Grid | null> = useRef(null)
+
+  const resetFollowPoints = (): void => {
+    const canvas = canvasElement.current!
+    mousePos.current!.set(canvas.width / 2, canvas.height / 2)
+    mainPoint.current!.set(canvas.width / 2, canvas.height / 2)
   }
 
-  private mouseMoveHandle (e: MouseEvent): void {
-    const canvas: HTMLCanvasElement = e.currentTarget as HTMLCanvasElement
-    const x = e.offsetX * canvas.width / canvas.clientWidth
-    const y = e.offsetY * canvas.height / canvas.clientHeight
-    this.mousePos.setCoordinates(x, y)
-  }
-
-  private resetFollowPoints (): void {
-    const canvas = this.canvasElement as HTMLCanvasElement
-    const x = canvas.width / 2
-    const y = canvas.height / 2
-
-    this.mainPoint = new Point(x, y)
-    this.mousePos = new Point(x, y)
-  }
-
-  private buildGrid (rebuild: boolean = true): void {
-    const { elasticity, distWeight, rows, cols } = this.props
-
-    if (!rebuild) {
-      const g = this.grid as Grid
-      g.elasticity = elasticity
-      g.distWeight = distWeight
-      return
-    }
-
-    this.resetFollowPoints()
-
-    this.grid = new Grid({
-      ...config,
-      rows,
-      cols,
-      centerCell: {
+  const setGrid = (rebuild: boolean): void => {
+    if (rebuild) {
+      resetFollowPoints()
+      const mainOpts = { ...config, rows, cols }
+      const centerCell = {
         row: (rows - 1) / 2,
         col: (cols - 1) / 2
-      },
-      elasticity,
-      distWeight
-    },
-    this.mainPoint)
-  }
-
-  componentDidMount (): void {
-    console.log('Grid Wrapper Component mounted!')
-    this.buildGrid()
-    const canvas = this.canvasElement as HTMLCanvasElement
-    this.canvasRenderer = new CanvasRenderer(canvas)
-    canvas.addEventListener('mousemove', this.mouseMoveHandle)
-
-    this.loop()
-  }
-
-  private updateMainPoint (): void {
-    this.mainPoint.x += (this.mousePos.x - this.mainPoint.x) / 5
-    this.mainPoint.y += (this.mousePos.y - this.mainPoint.y) / 5
-  }
-
-  private update (): void {
-    this.updateMainPoint();
-    (this.grid as Grid).update(this.mainPoint)
-  }
-
-  private loop (): void {
-    this.update();
-    (this.canvasRenderer as CanvasRenderer).draw(this.grid as Grid, this.mainPoint)
-
-    if (this.props.frameLimit) {
-      setTimeout(() => window.requestAnimationFrame(this.loop.bind(this)), 50)
-    } else {
-      window.requestAnimationFrame(this.loop.bind(this))
+      }
+      grid.current = new Grid({ ...mainOpts, centerCell }, mainPoint.current!)
     }
+
+    grid.current!.elasticity = elasticity
+    grid.current!.distWeight = distWeight
   }
 
-  private removeMouseListener (): void {
-    console.log('Removing event')
-    const canvas = this.canvasElement as HTMLCanvasElement
-    canvas.removeEventListener('mousemove', this.mouseMoveHandle)
-  }
+  useEffect(() => {
+    console.log('Initializing data')
+    canvasRenderer.current = new CanvasRenderer(canvasElement.current!)
+    mainPoint.current = new Point(0, 0)
+    mousePos.current = new Point(0, 0)
+  }, [])
 
-  componentWillUnmount (): void {
-    console.log('Unmounted')
-    this.removeMouseListener()
-  }
+  useEffect(() => { setGrid(true) }, [rows, cols])
+  useEffect(() => { setGrid(false) }, [elasticity, distWeight])
 
-  componentDidUpdate (prevProps: GridWrapperProps): void {
-    const rebuild = prevProps.cols !== this.props.cols || prevProps.rows !== this.props.rows
-    console.log('Grid Wrapper Component was updated.... Rebuild?: ', rebuild)
+  setMousePosition(useMouse(canvasElement, useMouseOpts as UseMouseOptions), canvasElement.current!, mousePos.current!)
 
-    this.buildGrid(rebuild)
-  }
+  useAnimationFrame(frameLimit, (_deltaTime: number) => {
+    const main = mainPoint.current!
+    const mouse = mousePos.current!
+    main.x += (mouse.x - main.x) / 5
+    main.y += (mouse.y - main.y) / 5
 
-  render (): ReactElement {
-    return (
+    canvasRenderer.current!.draw(grid.current!, main)
+    grid.current!.update(main)
+  })
+
+  return (
+    <div>
       <canvas
         width={1000}
         height={800}
         className="w-full border-2"
-        ref={(ref: HTMLCanvasElement) => { this.canvasElement = ref }}/>
-    )
-  }
+        ref={canvasElement}/>
+    </div>
+  )
 }
