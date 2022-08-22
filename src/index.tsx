@@ -8,11 +8,9 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
 root.render(
-  // TODO: React.StrictMode Mounts the expensive component (grid animation) twice!
-  // https://stackoverflow.com/questions/49055172/react-component-mounting-twice
-  // <React.StrictMode>
-  <App />
-  // </React.StrictMode>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 )
 
 // If you want to start measuring performance in your app, pass a function

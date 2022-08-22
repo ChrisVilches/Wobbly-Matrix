@@ -44,6 +44,9 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit }: 
     canvasRenderer.current = new CanvasRenderer(canvasElement.current!)
     mainPoint.current = new Point(0, 0)
     mousePos.current = new Point(0, 0)
+    return () => {
+      console.log('<GridWrapper> Unmounted')
+    }
   }, [])
 
   useEffect(() => {
