@@ -30,7 +30,7 @@ export const VisualizationPane = ({ elasticity, distWeight, frameLimit, setFrame
       cols={matrixSize}/>
 
     <div className="mt-4">
-      <button className="md:inline hidden btn btn-primary" onClick={() => setEnlarged(!enlarged)}>
+      <button className="xl:inline hidden btn btn-primary" onClick={() => setEnlarged(!enlarged)}>
         <ZoomIcon zoomedIn={enlarged}/>
       </button>
 
@@ -39,7 +39,7 @@ export const VisualizationPane = ({ elasticity, distWeight, frameLimit, setFrame
           defaultChecked={frameLimit}
           onClick={() => setFrameLimit(!frameLimit)}
           type="checkbox"
-          className="rounded-full shadow-xl bg-blue-100 border-blue-300 text-blue-400 focus:ring-blue-200 mr-3"/>
+          className="rounded-full hover:shadow-md bg-blue-100 border-blue-300 text-blue-400 hover:text-blue-500 focus:ring-blue-200 mr-3"/>
         Limit framerate
       </label>
     </div>

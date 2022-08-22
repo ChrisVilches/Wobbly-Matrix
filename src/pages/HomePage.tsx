@@ -23,15 +23,19 @@ export const HomePage = (): ReactElement => {
   }
 
   return (
-    <div style={{ margin: '50px' }}>
-      <div className="grid grid-cols-12 gap-12">
-        <div className={enlarged ? 'md:col-span-6 col-span-12' : 'md:col-span-5 col-span-12'}>
-          <VisualizationPane {...{ elasticity, distWeight, matrixSize, frameLimit, setFrameLimit, enlarged, setEnlarged }}/>
+    <div className="m-10">
+      <div className="grid grid-cols-12 xl:gap-12 gap-4">
+        <div className={enlarged ? 'xl:col-span-7 col-span-12' : 'xl:col-span-5 col-span-12'}>
+          <div className="mb-16">
+            <VisualizationPane {...{ elasticity, distWeight, matrixSize, frameLimit, setFrameLimit, enlarged, setEnlarged }}/>
+          </div>
         </div>
-        <div className={enlarged ? 'md:col-span-6 col-span-12' : 'md:col-span-7 col-span-12'}>
+        <div className={enlarged ? 'xl:col-span-5 col-span-12' : 'xl:col-span-7 col-span-12'}>
           <TipBox text='For both parameters, the higher, the wobblier.'/>
 
-          <ConfigurationForm {...{ elasticity, setElasticity, distWeight, setDistWeight, matrixSize, setMatrixSize, reset }}/>
+          <div className="mt-8">
+            <ConfigurationForm {...{ elasticity, setElasticity, distWeight, setDistWeight, matrixSize, setMatrixSize, reset }}/>
+          </div>
         </div>
       </div>
     </div>

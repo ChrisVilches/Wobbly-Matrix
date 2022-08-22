@@ -29,14 +29,6 @@ export class Point {
     return Math.hypot(this.x, this.y)
   }
 
-  setMagnitude (m: number): Point {
-    return this.normalize().scale(m)
-  }
-
-  normalize (): Point {
-    return new Point(this.x / this.magnitude(), this.y / this.magnitude())
-  }
-
   scale (f: number): Point {
     return new Point(this.x * f, this.y * f)
   }

@@ -81,8 +81,8 @@ export class GridWrapper extends React.Component {
   }
 
   private updateMainPoint (): void {
-    this.mainPoint.x -= -(this.mousePos.x - this.mainPoint.x) / 5
-    this.mainPoint.y -= -(this.mousePos.y - this.mainPoint.y) / 5
+    this.mainPoint.x += (this.mousePos.x - this.mainPoint.x) / 5
+    this.mainPoint.y += (this.mousePos.y - this.mainPoint.y) / 5
   }
 
   private update (): void {
@@ -113,17 +113,17 @@ export class GridWrapper extends React.Component {
   }
 
   componentDidUpdate (prevProps: GridWrapperProps): void {
-    console.log('Grid Wrapper Component was updated...')
-
     const rebuild = prevProps.cols !== this.props.cols || prevProps.rows !== this.props.rows
+    console.log('Grid Wrapper Component was updated.... Rebuild?: ', rebuild)
+
     this.buildGrid(rebuild)
   }
 
   render (): ReactElement {
     return (
       <canvas
-        height={1000}
         width={1000}
+        height={800}
         className="w-full border-2"
         ref={(ref: HTMLCanvasElement) => { this.canvasElement = ref }}/>
     )

@@ -2,74 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-.App {
-  text-align: center;
-}
-
 .btn {
   @apply rounded;
-  @apply px-3;
+  @apply px-5;
   @apply py-2;
-  @apply m-1;
   @apply border-b-4;
   @apply border-l-2;
   @apply shadow-lg;
+  @apply transition-colors;
+  @apply duration-300;
 }
 
 .parameter-label {
   @apply font-semibold;
-  @apply my-2;
+  @apply mt-2;
+  @apply mb-6;
 }
 
 .btn-primary {
   @apply bg-blue-600;
   @apply border-blue-800;
   @apply text-white;
+  @apply hover:bg-blue-500;
 }
 
 .btn-secondary {
   @apply bg-gray-200;
   @apply border-gray-400;
   @apply text-black;
+  @apply hover:bg-gray-100;
 }
 
 .btn-danger {
   @apply bg-red-400;
   @apply border-red-500;
   @apply text-white;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  @apply hover:bg-red-300;
 }
