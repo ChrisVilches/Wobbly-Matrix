@@ -51,3 +51,11 @@ code {
   @apply text-white;
   @apply hover:bg-red-300;
 }
+
+.arrow-btn {
+  @apply btn;
+  @apply btn-secondary;
+  @apply text-center;
+  @apply inline-flex;
+  @apply items-center;
+}

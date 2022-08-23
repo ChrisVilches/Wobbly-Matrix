@@ -9,7 +9,7 @@ const defaultValues = {
   matrixSize: 7
 }
 
-export const HomePage = (): ReactElement => {
+export const Home = (): ReactElement => {
   const [elasticity, setElasticity] = useState(defaultValues.elasticity)
   const [distWeight, setDistWeight] = useState(defaultValues.distWeight)
   const [matrixSize, setMatrixSize] = useState(defaultValues.matrixSize)
@@ -23,19 +23,17 @@ export const HomePage = (): ReactElement => {
   }
 
   return (
-    <div className="m-10">
-      <div className="grid grid-cols-12 xl:gap-12 gap-4">
-        <div className={enlarged ? 'xl:col-span-7 col-span-12' : 'xl:col-span-5 col-span-12'}>
-          <div className="mb-16">
-            <VisualizationPane {...{ elasticity, distWeight, matrixSize, frameLimit, setFrameLimit, enlarged, setEnlarged }}/>
-          </div>
+    <div className="grid grid-cols-12 xl:gap-12 gap-4">
+      <div className={enlarged ? 'xl:col-span-7 col-span-12' : 'xl:col-span-5 col-span-12'}>
+        <div className="mb-16">
+          <VisualizationPane {...{ elasticity, distWeight, matrixSize, frameLimit, setFrameLimit, enlarged, setEnlarged }}/>
         </div>
-        <div className={enlarged ? 'xl:col-span-5 col-span-12' : 'xl:col-span-7 col-span-12'}>
-          <TipBox text='For both parameters, the higher, the wobblier.'/>
+      </div>
+      <div className={enlarged ? 'xl:col-span-5 col-span-12' : 'xl:col-span-7 col-span-12'}>
+        <TipBox text='For both parameters, the higher, the wobblier.'/>
 
-          <div className="mt-8">
-            <ConfigurationForm {...{ elasticity, setElasticity, distWeight, setDistWeight, matrixSize, setMatrixSize, reset }}/>
-          </div>
+        <div className="mt-8">
+          <ConfigurationForm {...{ elasticity, setElasticity, distWeight, setDistWeight, matrixSize, setMatrixSize, reset }}/>
         </div>
       </div>
     </div>

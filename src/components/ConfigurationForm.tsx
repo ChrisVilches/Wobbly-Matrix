@@ -21,12 +21,10 @@ export const ConfigurationForm = ({ elasticity, setElasticity, distWeight, setDi
     <Slider onChange={val => setDistWeight(val as number)} value={distWeight}/>
 
     <div className="mt-8 parameter-label">Matrix size ({matrixSize} x {matrixSize})</div>
-    <div className="flex flex-row space-x-4">
+    <div className="flex flex-row space-x-4 mb-10">
       <button className="w-1/2 sm:w-auto btn btn-secondary" onClick={() => setMatrixSize(matrixSize - 1)} disabled={matrixSize === 1}>-</button>
       <button className="w-1/2 sm:w-auto btn btn-secondary" onClick={() => setMatrixSize(matrixSize + 1)}>+</button>
     </div>
-
-    <div className="clear-both my-10"></div>
 
     <button className="btn btn-danger w-full sm:w-auto" onClick={reset}>
       Reset
