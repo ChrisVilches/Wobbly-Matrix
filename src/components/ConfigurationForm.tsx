@@ -17,10 +17,10 @@ export const ConfigurationForm = ({ elasticity, setElasticity, distWeight, setDi
     <div className="parameter-label">Elasticity</div>
     <Slider onChange={val => setElasticity(val as number)} value={elasticity}/>
 
-    <div className="parameter-label">Deformation</div>
+    <div className="mt-8 parameter-label">Deformation</div>
     <Slider onChange={val => setDistWeight(val as number)} value={distWeight}/>
 
-    <div className="parameter-label">Matrix size ({matrixSize} x {matrixSize})</div>
+    <div className="mt-8 parameter-label">Matrix size ({matrixSize} x {matrixSize})</div>
     <div className="flex flex-row space-x-4">
       <button className="w-1/2 sm:w-auto btn btn-secondary" onClick={() => setMatrixSize(matrixSize - 1)} disabled={matrixSize === 1}>-</button>
       <button className="w-1/2 sm:w-auto btn btn-secondary" onClick={() => setMatrixSize(matrixSize + 1)}>+</button>
