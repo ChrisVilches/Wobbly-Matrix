@@ -67,20 +67,22 @@ export const Tutorial = (): ReactElement => {
         <GridWrapper {...configurations[currentStage - 1]} frameLimit={false} />
       </div>
       <div className="md:col-span-7 col-span-12">
-        <div className="mb-6">
-          <div className="text-cyan-700 font-semibold mb-4 text-sm uppercase">step #{currentStage}</div>
-          <strong>{titles[currentStage - 1]}</strong>
-        </div>
+        <div className="flex flex-col h-full">
+          <div>
+            <div className="text-cyan-700 font-semibold mb-4 text-sm uppercase">step #{currentStage}</div>
+            <strong>{titles[currentStage - 1]}</strong>
+          </div>
 
-        <motion.div
-          {...transition}
-          className="block mt-5 mb-12 text-slate-700">
-          <Explanation />
-        </motion.div>
+          <motion.div
+            {...transition}
+            className="text-slate-700 grow">
+            <Explanation />
+          </motion.div>
 
-        <div className="flex space-x-4 justify-center">
-          <ConditionIconLinkButton enabled={canBack} to={`/tutorial/${currentStage - 1}`} icon={<ChevronLeft />} />
-          <ConditionIconLinkButton enabled={canNext} to={`/tutorial/${currentStage + 1}`} icon={<ChevronRight />} />
+          <div className="flex space-x-4 justify-center">
+            <ConditionIconLinkButton enabled={canBack} to={`/tutorial/${currentStage - 1}`} icon={<ChevronLeft />} />
+            <ConditionIconLinkButton enabled={canNext} to={`/tutorial/${currentStage + 1}`} icon={<ChevronRight />} />
+          </div>
         </div>
       </div>
     </div>
