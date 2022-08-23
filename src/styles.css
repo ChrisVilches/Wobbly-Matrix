@@ -14,7 +14,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-
 .btn {
   @apply rounded;
   @apply px-5;
@@ -43,6 +42,8 @@ code {
   @apply border-gray-400;
   @apply text-black;
   @apply hover:bg-gray-100;
+  @apply disabled:bg-gray-50;
+  @apply disabled:border-gray-200;
 }
 
 .btn-danger {
@@ -58,4 +59,25 @@ code {
   @apply text-center;
   @apply inline-flex;
   @apply items-center;
+}
+
+.navbar-link {
+  @apply block;
+  @apply px-4;
+  @apply py-2;
+  @apply my-2;
+  @apply rounded-md;
+  @apply items-center;
+  @apply md:ml-5 !important;
+}
+
+.active-navbar-link {
+  @apply text-cyan-900;
+  @apply bg-slate-50;
+  @apply font-bold;
+}
+
+.not-active-navbar-link {
+  @apply text-black;
+  @apply hover:text-cyan-900;
 }

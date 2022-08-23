@@ -8,7 +8,8 @@ module.exports = {
       '@config': path.resolve(__dirname, 'src/config'),
       '@components': path.resolve(__dirname, 'src/components'),
       '@routes': path.resolve(__dirname, 'src/routes'),
-      '@hooks': path.resolve(__dirname, 'src/hooks')
+      '@hooks': path.resolve(__dirname, 'src/hooks'),
+      '@hocs': path.resolve(__dirname, 'src/hocs')
     }
   }
 }

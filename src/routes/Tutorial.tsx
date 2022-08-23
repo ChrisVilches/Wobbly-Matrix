@@ -1,100 +1,25 @@
 import React, { ReactElement, useEffect } from 'react'
 import { GridWrapper } from '@components/GridWrapper'
 import { Params, useParams, useNavigate, Link } from 'react-router-dom'
-import MathJaxContext from 'better-react-mathjax/MathJaxContext'
-import MathJax from 'better-react-mathjax/MathJax'
+import { Step1 } from '@components/tutorial/Step1'
+import { Step2 } from '@components/tutorial/Step2'
+import { Step3 } from '@components/tutorial/Step3'
+import { Step4 } from '@components/tutorial/Step4'
+
+// TODO: Refactor. This component is very messy (has a lot of lines)
 
 const configurations = [
   { cols: 1, rows: 1, elasticity: 0.0, distWeight: 0 },
   { cols: 1, rows: 1, elasticity: 0.97, distWeight: 0 },
   { cols: 5, rows: 5, elasticity: 0.97, distWeight: 0 },
-  { cols: 5, rows: 5, elasticity: 0.97, distWeight: 0.002 }
+  { cols: 6, rows: 6, elasticity: 0.97, distWeight: 0.002 }
 ]
 
-const step1 = <>
-  <p className="my-4">
-    Make a point follow the mouse.
-  </p>
-
-  <MathJaxContext>
-    <p className="my-4">
-      Let <MathJax inline={true}>{'\\(P\\)'}</MathJax> be the point,
-      and <MathJax inline={true}>{'\\(M\\)'}</MathJax> be the mouse position.
-      Then, on every frame, you can make <MathJax inline={true}>{'\\(P\\)'}</MathJax> follow the mouse
-      with this simple assignment:
-    </p>
-    <MathJax>
-    {'\\(P \\leftarrow P + \\frac{\\overrightarrow{PM}}{5}\\)'}
-    </MathJax>
-
-    <p className="my-4">
-      Note that <MathJax inline={true}>{'\\(5\\)'}</MathJax> can be any other positive constant.
-      If you use <MathJax inline={true}>{'\\(1\\)'}</MathJax> the movement will be instantaneous.
-    </p>
-  </MathJaxContext>
-</>
-
-const step2 = <>
-  <p className="my-4">
-    Instead of simply following the mouse, make the point oscillate around the mouse.
-  </p>
-
-  <p className="my-4">
-    <i>Under construction...</i>
-  </p>
-
-  <MathJaxContext>
-  </MathJaxContext>
-</>
-
-const step3 = <>
-  <p className="my-4">
-    Add more points to the grid.
-  </p>
-  <p className="my-4">
-    The movement of each point is independent from each other.
-    The line segments drawn between pairs of points are simply for presentation.
-  </p>
-  <p className="my-4">
-    Each point needs a position offset, which can be calculated from the cell in the grid it belongs to.
-  </p>
-
-  <MathJaxContext>
-    <p className="my-4">
-      Let <MathJax inline={true}>{'\\((C_i, C_j)\\)'}</MathJax> be the central cell (i.e. the one that follows the mouse),
-      and assuming each cell has a size (width and height) of <MathJax inline={true}>{'\\(150\\)'}</MathJax>, then the
-      offset <MathJax inline={true}>{'\\(\\overrightarrow{O}\\)'}</MathJax> for the point at
-      the <MathJax inline={true}>{'\\((i, j)\\)'}</MathJax> position can be computed like so:
-    </p>
-
-    <MathJax>
-    {'\\(\\overrightarrow{O} = 150 \\cdot (i - C_i, j - C_j)\\)'}
-    </MathJax>
-  </MathJaxContext>
-</>
-
-const step4 = <>
-  <p className="my-4">
-    In order to make the grid wobble and not just oscillate, the easiest way is to simply change some numbers involved
-    in the movement in a way that&apos;s proportional to the distance from the central point.
-  </p>
-
-  <p className="my-4">
-    Since the the movement of each point is controlled by the use of some constants, you can make the distance affect
-    these numbers (by multiplying them). The result is that the points near the center will move differently from the
-    points far from it.
-  </p>
-
-  <p className="my-4">
-    There are multiple ways of achieving this effect.
-  </p>
-</>
-
 const explanations = [
-  step1,
-  step2,
-  step3,
-  step4
+  Step1,
+  Step2,
+  Step3,
+  Step4
 ]
 
 const titles = [
@@ -132,25 +57,29 @@ const ChevronRight = (): ReactElement => (
 
 interface ConditionLinkProps {
   icon: ReactElement
-  show: boolean
+  enabled: boolean
   to: string
-  className: string
 }
 
-const ConditionIconLink = ({ icon, show, className, to }: ConditionLinkProps): ReactElement => {
-  if (!show) {
-    return <></>
+const ConditionIconLink = ({ icon, enabled, to }: ConditionLinkProps): ReactElement => {
+  if (!enabled) {
+    return (
+      <button className="arrow-btn" disabled>
+        {icon}
+      </button>
+    )
   }
 
   return (
     <Link to={to}>
-      <button className={`arrow-btn ${className}`}>
+      <button className="arrow-btn">
         {icon}
       </button>
     </Link>
   )
 }
 
+// TODO: Can I animate the stage change transition? (fadein/fadeout)
 export const Tutorial = (): ReactElement => {
   const params = useParams()
   const navigate = useNavigate()
@@ -170,29 +99,26 @@ export const Tutorial = (): ReactElement => {
     return <></>
   }
 
+  const Explanation = explanations[currentStage - 1]
+
   return (
     <div className="grid grid-cols-12 xl:gap-12 gap-4">
       <div className="md:col-span-5 col-span-12">
         <GridWrapper {...configurations[currentStage - 1]} frameLimit={false} />
       </div>
       <div className="md:col-span-7 col-span-12">
-
-        <strong>Step #{currentStage}: {titles[currentStage - 1]}</strong>
-
-        <div className="block my-5 text-slate-600">
-          {explanations[currentStage - 1]}
+        <div className="mb-6">
+          <div className="text-cyan-700 font-semibold mb-4 text-sm uppercase">step #{currentStage}</div>
+          <strong>{titles[currentStage - 1]}</strong>
         </div>
 
-        <div className="clear-both my-20"></div>
+        <div className="block mt-5 mb-12 text-slate-700">
+          <Explanation />
+        </div>
 
-        {/** TODO: This should be done differently. Also make it responsive. Try to remove the "clear" */}
-        <div className="block">
-          <ConditionIconLink show={canBack} to={`/tutorial/${currentStage - 1}`} className="float-left" icon={<ChevronLeft />} />
-          <ConditionIconLink show={canNext} to={`/tutorial/${currentStage + 1}`} className="float-right" icon={<ChevronRight />} />
-
-          <div className="align-middle">
-            {currentStage} / {configurations.length}
-          </div>
+        <div className="flex space-x-4 justify-center">
+          <ConditionIconLink enabled={canBack} to={`/tutorial/${currentStage - 1}`} icon={<ChevronLeft />} />
+          <ConditionIconLink enabled={canNext} to={`/tutorial/${currentStage + 1}`} icon={<ChevronRight />} />
         </div>
       </div>
     </div>
