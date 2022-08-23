@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { MathContainer } from '@components/MathContainer'
 
 export const Step2 = (): ReactElement => (
   <>
@@ -10,8 +9,5 @@ export const Step2 = (): ReactElement => (
     <p className="my-4">
       <i>Under construction...</i>
     </p>
-
-    <MathContainer>
-    </MathContainer>
   </>
 )

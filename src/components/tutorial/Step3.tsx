@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
-import { MathContainer } from '@components/MathContainer'
 import MathJax from 'better-react-mathjax/MathJax'
+import { MathJaxContext } from 'better-react-mathjax'
 
 export const Step3 = (): ReactElement => (
   <>
@@ -15,7 +15,7 @@ export const Step3 = (): ReactElement => (
       Each point needs a position offset, which can be calculated from the cell in the grid it belongs to.
     </p>
 
-    <MathContainer>
+    <MathJaxContext>
       <p className="my-4">
         Let <MathJax inline={true}>{'\\((C_i, C_j)\\)'}</MathJax> be the central cell (i.e. the one that follows the mouse),
         and assuming each cell has a size (width and height) of <MathJax inline={true}>{'\\(150\\)'}</MathJax>, then the
@@ -26,6 +26,6 @@ export const Step3 = (): ReactElement => (
       <MathJax>
       {'\\(\\overrightarrow{O} = 150 \\cdot (i - C_i, j - C_j)\\)'}
       </MathJax>
-    </MathContainer>
+    </MathJaxContext>
   </>
 )
