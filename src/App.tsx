@@ -1,12 +1,14 @@
 import React, { ReactElement } from 'react'
 import { Home } from '@routes/Home'
 import { Tutorial } from '@routes/Tutorial'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { Nav } from '@components/Nav'
 
 function App (): ReactElement {
   // TODO: Handle incorrect route.
   // TODO: What is outlet? when to use it?
+  const location = useLocation()
+
   return (
     <div className="flex flex-col h-screen">
       <div className="flex-row">
@@ -14,7 +16,7 @@ function App (): ReactElement {
       </div>
       <div className="flex-grow flex-row">
         <div className="m-10">
-          <Routes>
+          <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home/>} />
             <Route path="tutorial" element={<Tutorial/>}>
               <Route path=":stage" element={<Tutorial/>}/>

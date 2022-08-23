@@ -1,0 +1,34 @@
+{
+  "configurations": [
+    {
+      "cols": 1,
+      "rows": 1,
+      "elasticity": 0.0,
+      "distWeight": 0
+    },
+    {
+      "cols": 1,
+      "rows": 1,
+      "elasticity": 0.97,
+      "distWeight": 0
+    },
+    {
+      "cols": 5,
+      "rows": 5,
+      "elasticity": 0.97,
+      "distWeight": 0
+    },
+    {
+      "cols": 6,
+      "rows": 6,
+      "elasticity": 0.97,
+      "distWeight": 0.002
+    }
+  ],
+  "titles": [
+    "Follow the Mouse",
+    "Add Oscillations",
+    "More Points",
+    "Grid Deformations"
+  ]
+}

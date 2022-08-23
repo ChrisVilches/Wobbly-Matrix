@@ -15,6 +15,7 @@
     "better-react-mathjax": "^2.0.2",
     "flowbite": "^1.5.2",
     "flowbite-react": "^0.1.10",
+    "framer-motion": "^7.2.1",
     "rc-slider": "^10.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
