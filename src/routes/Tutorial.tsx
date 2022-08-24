@@ -6,7 +6,7 @@ import { Step2 } from '@components/tutorial/Step2'
 import { Step3 } from '@components/tutorial/Step3'
 import { Step4 } from '@components/tutorial/Step4'
 import tutorialData from '@config/tutorial.json'
-import { ChevronLeft, ChevronRight } from '@components/Icons'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import { ConditionIconLinkButton } from '@components/ConditionIconLinkButton'
 import { motion } from 'framer-motion'
 
@@ -68,10 +68,8 @@ export const Tutorial = (): ReactElement => {
       </div>
       <div className="md:col-span-7 col-span-12">
         <div className="flex flex-col h-full">
-          <div>
-            <div className="text-cyan-700 font-semibold mb-4 text-sm uppercase">step #{currentStage}</div>
-            <strong>{titles[currentStage - 1]}</strong>
-          </div>
+          <div className="text-cyan-700 font-semibold mb-4 text-sm uppercase">step #{currentStage}</div>
+          <strong>{titles[currentStage - 1]}</strong>
 
           <motion.div
             {...transition}
@@ -80,8 +78,8 @@ export const Tutorial = (): ReactElement => {
           </motion.div>
 
           <div className="flex space-x-4 justify-center mt-14">
-            <ConditionIconLinkButton enabled={canBack} to={`/tutorial/${currentStage - 1}`} icon={<ChevronLeft />} />
-            <ConditionIconLinkButton enabled={canNext} to={`/tutorial/${currentStage + 1}`} icon={<ChevronRight />} />
+            <ConditionIconLinkButton enabled={canBack} to={`/tutorial/${currentStage - 1}`} icon={<ChevronLeftIcon className="h-6 w-6"/>} />
+            <ConditionIconLinkButton enabled={canNext} to={`/tutorial/${currentStage + 1}`} icon={<ChevronRightIcon className="h-6 w-6"/>} />
           </div>
         </div>
       </div>

@@ -83,12 +83,10 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit }: 
   })
 
   return (
-    <div>
-      <canvas
-        width={1000}
-        height={800}
-        className="w-full border-2"
-        ref={canvasElement}/>
-    </div>
+    <canvas
+      width={1000}
+      height={800}
+      className="w-full border-2"
+      ref={canvasElement}/>
   )
 }

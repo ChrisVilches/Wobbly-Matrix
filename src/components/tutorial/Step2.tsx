@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 
+// TODO: Finish this step.
 export const Step2 = (): ReactElement => (
   <>
     <p className="my-4">

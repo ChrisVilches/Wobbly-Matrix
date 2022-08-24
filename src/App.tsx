@@ -6,15 +6,11 @@ import { Nav } from '@components/Nav'
 import { NotFound } from '@routes/NotFound'
 
 function App (): ReactElement {
-  // TODO: Handle incorrect route.
-  // TODO: What is outlet? when to use it?
   const location = useLocation()
 
   return (
     <div className="flex flex-col h-screen">
-      <div>
-        <Nav/>
-      </div>
+      <Nav/>
       <div className="grow">
         <div className="m-10">
           <Routes location={location} key={location.pathname}>
