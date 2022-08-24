@@ -79,7 +79,7 @@ export const Tutorial = (): ReactElement => {
             <Explanation />
           </motion.div>
 
-          <div className="flex space-x-4 justify-center">
+          <div className="flex space-x-4 justify-center mt-14">
             <ConditionIconLinkButton enabled={canBack} to={`/tutorial/${currentStage - 1}`} icon={<ChevronLeft />} />
             <ConditionIconLinkButton enabled={canNext} to={`/tutorial/${currentStage + 1}`} icon={<ChevronRight />} />
           </div>

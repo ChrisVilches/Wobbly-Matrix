@@ -1,19 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Navbar } from 'flowbite-react'
-
-const Logo = (): ReactElement => (
-  <Navbar.Brand href="/">
-    <img
-      src="https://flowbite.com/docs/images/logo.svg"
-      className="mr-3 h-6 sm:h-9"
-      alt="Wobbly Matrix"
-    />
-    <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-      Wobbly Matrix
-    </span>
-  </Navbar.Brand>
-)
+import { Logo } from '@components/Logo'
 
 const active = 'active-navbar-link'
 const notActive = 'not-active-navbar-link'
@@ -32,7 +20,13 @@ export const Nav = (): ReactElement => {
 
   return (
     <Navbar fluid={true} rounded={true}>
-      <Logo/>
+      <Navbar.Brand href="/">
+        <Logo size={60} className="my-4"/>
+
+        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+          Wobbly Matrix
+        </span>
+      </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Link

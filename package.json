@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -28,6 +29,9 @@
     "build": "craco build",
     "test": "craco test",
     "lint": "eslint . --fix"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   },
   "browserslist": {
     "production": [
@@ -43,6 +47,7 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.2",
+    "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "autoprefixer": "^10.4.8",
     "eslint": "^8.22.0",

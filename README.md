@@ -25,6 +25,16 @@ Build the production distribution with:
 npm run build
 ```
 
+## Tools
+
+Made with:
+
+* TypeScript
+* React
+* Tailwind CSS + Flowbite
+* MathJax
+* Other libraries
+
 ## Future work
 
 ### Image mapping

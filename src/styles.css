@@ -81,3 +81,14 @@ code {
   @apply text-black;
   @apply hover:text-cyan-900;
 }
+
+.logo div {
+  @apply bg-cyan-900;
+  position: relative;
+}
+
+.logo div:before {
+  content: "";
+  @apply bg-cyan-900;
+  position: absolute;
+}

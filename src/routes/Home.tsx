@@ -2,6 +2,7 @@ import React, { useState, ReactElement } from 'react'
 import { TipBox } from '@components/TipBox'
 import { ConfigurationForm } from '@components/ConfigurationForm'
 import { VisualizationPane } from '@components/VisualizationPane'
+import { useLocalStorage } from '@hooks/useLocalStorage'
 
 const defaultValues = {
   elasticity: 90,
@@ -10,9 +11,9 @@ const defaultValues = {
 }
 
 export const Home = (): ReactElement => {
-  const [elasticity, setElasticity] = useState(defaultValues.elasticity)
-  const [distWeight, setDistWeight] = useState(defaultValues.distWeight)
-  const [matrixSize, setMatrixSize] = useState(defaultValues.matrixSize)
+  const [elasticity, setElasticity] = useLocalStorage('elasticity', defaultValues.elasticity)
+  const [distWeight, setDistWeight] = useLocalStorage('distWeight', defaultValues.distWeight)
+  const [matrixSize, setMatrixSize] = useLocalStorage('matrixSize', defaultValues.matrixSize)
   const [frameLimit, setFrameLimit] = useState(false)
   const [enlarged, setEnlarged] = useState(false)
 

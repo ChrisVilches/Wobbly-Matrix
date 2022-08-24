@@ -3,6 +3,7 @@ import { Home } from '@routes/Home'
 import { Tutorial } from '@routes/Tutorial'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Nav } from '@components/Nav'
+import { NotFound } from '@routes/NotFound'
 
 function App (): ReactElement {
   // TODO: Handle incorrect route.
@@ -11,17 +12,17 @@ function App (): ReactElement {
 
   return (
     <div className="flex flex-col h-screen">
-      <div className="flex-row">
+      <div>
         <Nav/>
       </div>
-      <div className="flex-grow flex-row">
+      <div className="grow">
         <div className="m-10">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home/>} />
             <Route path="tutorial" element={<Tutorial/>}>
               <Route path=":stage" element={<Tutorial/>}/>
             </Route>
-            <Route path="*" element={<div>No match</div>}/>
+            <Route path="*" element={<NotFound/>}/>
           </Routes>
         </div>
       </div>
