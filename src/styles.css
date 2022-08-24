@@ -31,10 +31,10 @@ code {
 }
 
 .btn-primary {
-  @apply bg-blue-600;
+  @apply bg-cyan-800;
   @apply border-blue-800;
   @apply text-white;
-  @apply hover:bg-blue-500;
+  @apply hover:bg-cyan-600;
 }
 
 .btn-secondary {

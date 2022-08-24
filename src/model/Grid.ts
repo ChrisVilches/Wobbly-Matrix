@@ -60,6 +60,22 @@ export class Grid {
     }
   }
 
+  // TODO: Some of the movement is a bit glitchy, but I'm not so sure.
+  generateRipple (p: Point): void {
+    for (let i = 0; i < this.rows; i++) {
+      for (let j = 0; j < this.cols; j++) {
+        const dist = this.grid[i][j].dist(p)
+
+        if (dist < 1e-1) continue
+
+        const dirNormalized = this.grid[i][j].subtract(p).scale(1 / dist)
+        const factor = 5 / (Math.log2(dist * this.distWeight + 2) ** 0.1)
+
+        this.prevD[i][j] = this.prevD[i][j].add(dirNormalized.scale(factor))
+      }
+    }
+  }
+
   private updatePoint (i: number, j: number, mainPoint: Point): void {
     const p = this.grid[i][j]
     this.updateOffsets(i, j, p, mainPoint)

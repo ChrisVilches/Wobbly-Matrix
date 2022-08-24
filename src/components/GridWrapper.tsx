@@ -70,6 +70,10 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit }: 
     grid.current!.distWeight = distWeight
   }, [rows, cols, elasticity, distWeight])
 
+  const canvasClickHandle = (): void => {
+    grid.current?.generateRipple(mousePos.current!)
+  }
+
   setMousePosition(useMouse(canvasElement, useMouseOpts as UseMouseOptions), canvasElement.current!, mousePos.current!)
 
   useAnimationFrame(frameLimit, (_deltaTime: number) => {
@@ -87,6 +91,7 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit }: 
       width={1000}
       height={800}
       className="w-full border-2"
+      onClick={canvasClickHandle}
       ref={canvasElement}/>
   )
 }
