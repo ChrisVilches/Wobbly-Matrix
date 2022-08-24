@@ -13,6 +13,7 @@ interface GridWrapperProps {
   rows: number
   cols: number
   frameLimit: boolean
+  enableRipple?: boolean
 }
 
 const setMousePosition = (mousePositionResult: MousePosition, canvasElement: HTMLCanvasElement, mousePos: Point): void => {
@@ -26,7 +27,7 @@ const setMousePosition = (mousePositionResult: MousePosition, canvasElement: HTM
   mousePos.set(x, y)
 }
 
-export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit }: GridWrapperProps): ReactElement => {
+export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit, enableRipple = false }: GridWrapperProps): ReactElement => {
   const canvasElement: MutableRefObject<HTMLCanvasElement | null> = useRef(null)
   const canvasRenderer: MutableRefObject<CanvasRenderer | null> = useRef(null)
   const mainPoint: MutableRefObject<Point | null> = useRef(null)
@@ -71,7 +72,9 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit }: 
   }, [rows, cols, elasticity, distWeight])
 
   const canvasClickHandle = (): void => {
-    grid.current?.generateRipple(mousePos.current!)
+    if (enableRipple) {
+      grid.current?.generateRipple(mousePos.current!)
+    }
   }
 
   setMousePosition(useMouse(canvasElement, useMouseOpts as UseMouseOptions), canvasElement.current!, mousePos.current!)

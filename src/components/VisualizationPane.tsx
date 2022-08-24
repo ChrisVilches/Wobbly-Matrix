@@ -27,7 +27,8 @@ export const VisualizationPane = ({ elasticity, distWeight, frameLimit, setFrame
       distWeight={scaleDistWeight(distWeight)}
       frameLimit={frameLimit}
       rows={matrixSize}
-      cols={matrixSize}/>
+      cols={matrixSize}
+      enableRipple={true}/>
 
     <div className="mt-4">
       <button className="xl:inline hidden btn btn-primary" onClick={() => setEnlarged(!enlarged)}>
