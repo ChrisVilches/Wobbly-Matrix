@@ -35,6 +35,7 @@ Made with:
 * MathJax
 * RxJS
 * Styled Components
+* Storybook
 * Other libraries
 
 ## Future work

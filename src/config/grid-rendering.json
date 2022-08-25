@@ -5,5 +5,7 @@
   },
   "sizes": {
     "gridCircle": 5
-  }
+  },
+  "animateFrameLimitDelay": 100,
+  "renderPointsDefault": false
 }

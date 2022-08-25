@@ -14,7 +14,6 @@ export const Home = (): ReactElement => {
   const [elasticity, setElasticity] = useLocalStorage('elasticity', defaultValues.elasticity)
   const [distWeight, setDistWeight] = useLocalStorage('distWeight', defaultValues.distWeight)
   const [matrixSize, setMatrixSize] = useLocalStorage('matrixSize', defaultValues.matrixSize)
-  const [frameLimit, setFrameLimit] = useState(false)
   const [enlarged, setEnlarged] = useState(false)
 
   const reset = (): void => {
@@ -27,7 +26,7 @@ export const Home = (): ReactElement => {
     <div className="grid grid-cols-12 xl:gap-12 gap-4">
       <div className={enlarged ? 'xl:col-span-7 col-span-12' : 'xl:col-span-5 col-span-12'}>
         <div className="mb-16">
-          <VisualizationPane {...{ elasticity, distWeight, matrixSize, frameLimit, setFrameLimit, enlarged, setEnlarged }}/>
+          <VisualizationPane {...{ elasticity, distWeight, matrixSize, enlarged, setEnlarged }}/>
         </div>
       </div>
       <div className={enlarged ? 'xl:col-span-5 col-span-12' : 'xl:col-span-7 col-span-12'}>

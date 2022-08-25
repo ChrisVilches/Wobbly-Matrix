@@ -14,6 +14,7 @@ interface GridWrapperProps {
   cols: number
   frameLimit: boolean
   enableRipple?: boolean
+  drawPoints?: boolean
 }
 
 const setMousePosition = (mousePositionResult: MousePosition, canvasElement: HTMLCanvasElement, mousePos: Point): void => {
@@ -27,7 +28,7 @@ const setMousePosition = (mousePositionResult: MousePosition, canvasElement: HTM
   mousePos.set(x, y)
 }
 
-export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit, enableRipple = false }: GridWrapperProps): ReactElement => {
+export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit, enableRipple = false, drawPoints = false }: GridWrapperProps): ReactElement => {
   const canvasElement: MutableRefObject<HTMLCanvasElement | null> = useRef(null)
   const canvasRenderer: MutableRefObject<CanvasRenderer | null> = useRef(null)
   const mainPoint: MutableRefObject<Point | null> = useRef(null)
@@ -47,11 +48,15 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit, en
 
   useEffect(() => {
     console.log('Initializing data')
-    canvasRenderer.current = new CanvasRenderer(canvasElement.current!)
+    canvasRenderer.current = new CanvasRenderer(canvasElement.current!, false)
     return () => {
       console.log('<GridWrapper> Unmounted')
     }
   }, [])
+
+  useEffect(() => {
+    canvasRenderer.current!.drawPoints = drawPoints
+  }, [drawPoints])
 
   useEffect(() => {
     const rebuild = grid?.current?.rows !== rows || grid?.current?.cols !== cols
@@ -94,7 +99,7 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit, en
       width={1000}
       height={800}
       className="w-full border-2"
-      onClick={canvasClickHandle}
+      onMouseDown={canvasClickHandle}
       ref={canvasElement}/>
   )
 }

@@ -1,12 +1,14 @@
 import { useState } from 'react'
-import { Subject, bufferTime, filter, debounceTime } from 'rxjs'
+import { Subject, bufferTime, filter } from 'rxjs'
 import { isLocalStorageAvailable } from '@util/isLocalStorageAvailable'
 
 const pendingUpdates$ = new Subject()
 
 const buffered$ = pendingUpdates$.pipe(
-  debounceTime(50),
-  bufferTime(100),
+  // Debounce breaks the app when pressing the "reset" button (only matrix size gets stored).
+  // It works OK without debounce and with a relatively large buffer time.
+  // debounceTime(50),
+  bufferTime(300),
   filter(x => x.length > 0)
 )
 

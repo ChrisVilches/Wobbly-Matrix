@@ -64,7 +64,7 @@ export const Tutorial = (): ReactElement => {
   return (
     <div className="grid grid-cols-12 xl:gap-12 gap-4">
       <div className="md:col-span-5 col-span-12 mb-8">
-        <GridWrapper {...configurations[currentStage - 1]} frameLimit={false} />
+        <GridWrapper {...configurations[currentStage - 1]} frameLimit={false} drawPoints={true}/>
       </div>
       <div className="md:col-span-7 col-span-12">
         <div className="flex flex-col h-full">

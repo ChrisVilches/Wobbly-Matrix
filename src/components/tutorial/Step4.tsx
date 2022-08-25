@@ -8,7 +8,7 @@ export const Step4 = (): ReactElement => (
     </p>
 
     <p className="my-4">
-      Since the the movement of each point is controlled by the use of some constants, you can make the distance affect
+      Since the movement of each point is controlled by the use of some constants, you can make the distance affect
       these numbers (by multiplying them). The result is that the points near the center will move differently from the
       points far from it.
     </p>

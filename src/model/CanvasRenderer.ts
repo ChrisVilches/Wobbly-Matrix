@@ -8,10 +8,12 @@ const gridRendering = gridRenderingJson as GridRendering
 export class CanvasRenderer {
   private readonly canvas: HTMLCanvasElement
   private readonly ctx: CanvasRenderingContext2D
+  drawPoints: boolean
 
-  constructor (canvasElement: HTMLCanvasElement) {
+  constructor (canvasElement: HTMLCanvasElement, drawPoints: boolean) {
     this.canvas = canvasElement
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
+    this.drawPoints = drawPoints
   }
 
   private drawLine (p1: Point, p2: Point): void {
@@ -52,6 +54,8 @@ export class CanvasRenderer {
         }
       }
     }
+
+    if (!this.drawPoints) return
 
     for (const row of grid) {
       for (const cell of row) {
