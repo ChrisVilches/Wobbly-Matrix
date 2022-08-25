@@ -9,7 +9,8 @@ module.exports = {
       '@components': path.resolve(__dirname, 'src/components'),
       '@routes': path.resolve(__dirname, 'src/routes'),
       '@hooks': path.resolve(__dirname, 'src/hooks'),
-      '@hocs': path.resolve(__dirname, 'src/hocs')
+      '@hocs': path.resolve(__dirname, 'src/hocs'),
+      '@util': path.resolve(__dirname, 'src/util')
     }
   }
 }

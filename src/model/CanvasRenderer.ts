@@ -53,9 +53,9 @@ export class CanvasRenderer {
       }
     }
 
-    for (let i = 0; i < rows; i++) {
-      for (let j = 0; j < cols; j++) {
-        this.drawCircle(grid[i][j], gridRendering.sizes.gridCircle, gridRendering.colors.gridPoints)
+    for (const row of grid) {
+      for (const cell of row) {
+        this.drawCircle(cell, gridRendering.sizes.gridCircle, gridRendering.colors.gridPoints)
       }
     }
   }

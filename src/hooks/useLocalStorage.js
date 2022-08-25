@@ -1,48 +1,32 @@
 import { useState } from 'react'
+import { Subject, bufferTime, filter, debounceTime } from 'rxjs'
+import { isLocalStorageAvailable } from '@util/isLocalStorageAvailable'
 
-let availableMemo = null
+const pendingUpdates$ = new Subject()
 
-function isLocalStorageAvailable () {
-  if (availableMemo !== null) {
-    return availableMemo
-  }
+const buffered$ = pendingUpdates$.pipe(
+  debounceTime(50),
+  bufferTime(100),
+  filter(x => x.length > 0)
+)
 
-  const test = 'dummy_key'
-  try {
-    window.localStorage.setItem(test, test)
-    window.localStorage.removeItem(test)
-    availableMemo = true
-  } catch (e) {
-    availableMemo = false
-  }
-
-  return availableMemo
-}
-
-const timeOut = {}
-
-const setDelayed = (key, value) => {
-  if (key in timeOut) {
-    clearTimeout(timeOut[key])
-  }
-  timeOut[key] = setTimeout(() => {
+const receiveAllChanges = changes => {
+  const finalValues = changes.reduce((accum, { key, value }) => ({ ...accum, [key]: value }), {})
+  for (const [key, value] of Object.entries(finalValues)) {
     window.localStorage.setItem(key, JSON.stringify(value))
-    console.count('Set localstorage')
-  }, 200)
+  }
 }
+
+buffered$.subscribe(receiveAllChanges)
 
 export function useLocalStorage (key, initialValue) {
-  let useStateArg = initialValue
-
-  if (isLocalStorageAvailable()) {
-    useStateArg = () => {
-      console.count('Read localstorage')
-      const value = JSON.parse(window.localStorage.getItem(key))
-      return value === null ? initialValue : value
-    }
+  const valueFromStorage = () => {
+    console.count('Read localstorage')
+    const value = JSON.parse(window.localStorage.getItem(key))
+    return value === null ? initialValue : value
   }
 
-  const [value, setValue] = useState(useStateArg)
+  const [value, setValue] = useState(isLocalStorageAvailable() ? valueFromStorage : initialValue)
 
   if (!isLocalStorageAvailable()) {
     return [value, setValue]
@@ -50,7 +34,7 @@ export function useLocalStorage (key, initialValue) {
 
   const setItem = value => {
     setValue(value)
-    setDelayed(key, value)
+    pendingUpdates$.next({ key, value })
   }
 
   return [value, setItem]

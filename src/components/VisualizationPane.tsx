@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { GridWrapper } from '../components/GridWrapper'
 import { ZoomIcon } from '@components/ZoomIcon'
+import { scale } from '@util/scale'
 
 interface VisualizationPaneProps {
   elasticity: number
@@ -10,11 +11,6 @@ interface VisualizationPaneProps {
   enlarged: boolean
   setEnlarged: Function
   setFrameLimit: Function
-}
-
-const scale = (min: number, max: number, n: number): number => {
-  const length = max - min
-  return min + (length * n / 100)
 }
 
 const scaleElasticity = (n: number): number => scale(0.1, 0.99, n)

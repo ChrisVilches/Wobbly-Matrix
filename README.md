@@ -33,6 +33,8 @@ Made with:
 * React
 * Tailwind CSS + Flowbite
 * MathJax
+* RxJS
+* Styled Components
 * Other libraries
 
 ## Future work

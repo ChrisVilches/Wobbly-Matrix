@@ -4,6 +4,9 @@ import { Tutorial } from '@routes/Tutorial'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Nav } from '@components/Nav'
 import { NotFound } from '@routes/NotFound'
+import { withTitle } from '@hocs/withTitle'
+
+const TutorialWithTitle = withTitle(Tutorial, 'Tutorial')
 
 function App (): ReactElement {
   const location = useLocation()
@@ -15,8 +18,8 @@ function App (): ReactElement {
         <div className="m-10">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home/>} />
-            <Route path="tutorial" element={<Tutorial/>}>
-              <Route path=":stage" element={<Tutorial/>}/>
+            <Route path="tutorial" element={<TutorialWithTitle/>}>
+              <Route path=":stage" element={<TutorialWithTitle/>}/>
             </Route>
             <Route path="*" element={<NotFound/>}/>
           </Routes>

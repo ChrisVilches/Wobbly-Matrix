@@ -28,6 +28,7 @@ export const useAnimationFrame = (frameLimit: boolean, callback: Function): void
     requestRef.current = requestAnimationFrame(animate)
   }
 
+  // TODO: No dependencies? How does that work? When does it execute?
   useEffect(() => {
     requestRef.current = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(requestRef.current!)
