@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { ReactElement } from 'react'
 
-import { Header } from './Header';
-import './page.css';
+interface User {
+  name: string
+}
 
-type User = {
-  name: string;
-};
+interface HeaderProps {
+  user?: User
+  onLogin: () => void
+  onLogout: () => void
+  onCreateAccount: () => void
+}
+
+const Header = (p: HeaderProps): ReactElement => (
+  <div>
+    Dummy header
+  </div>
+)
 
 export const Page: React.VFC = () => {
-  const [user, setUser] = React.useState<User>();
+  const [user, setUser] = React.useState<User>()
 
   return (
     <article>
@@ -36,7 +46,7 @@ export const Page: React.VFC = () => {
         <ul>
           <li>
             Use a higher-level connected component. Storybook helps you compose such data from the
-            "args" of child component stories
+            &quot;args&quot; of child component stories
           </li>
           <li>
             Assemble data in the page component from your services. You can mock these services out
@@ -69,5 +79,5 @@ export const Page: React.VFC = () => {
         </div>
       </section>
     </article>
-  );
-};
+  )
+}

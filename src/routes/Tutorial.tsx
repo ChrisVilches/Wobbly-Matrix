@@ -23,8 +23,7 @@ const explanations = [
   Step4
 ]
 
-const configurations = tutorialData.configurations
-const titles = tutorialData.titles
+const { configurations, titles } = tutorialData
 
 const getStageFromParams = (params: Readonly<Params<string>>): number => {
   let value = 1

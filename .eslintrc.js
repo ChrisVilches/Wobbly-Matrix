@@ -8,6 +8,12 @@ module.exports = {
     'standard-with-typescript'
   ],
   overrides: [
+    {
+      files: ['src/stories/**/*.tsx'],
+      rules: {
+        '@typescript-eslint/consistent-type-assertions': 'off'
+      }
+    }
   ],
   parserOptions: {
     ecmaVersion: 'latest',

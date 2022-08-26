@@ -1,36 +1,25 @@
-import { Logo } from '@components/Logo';
-import { ComponentType } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import '../styles.css'
+import React from 'react'
+import { Logo } from '@components/Logo'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 export default {
-  title: "Components/Logo",
-  component: Logo,
-  argTypes: {
-    handleClick: { action: "logging it in action section" },
-  },
-  decorators: [
-    (Story: ComponentType) => (
-      <div style={{ margin: "5rem" }}>
-        <Story />
-      </div>
-    ),
-  ],
+  title: 'Components/Logo',
+  component: Logo
 } as ComponentMeta<typeof Logo>
 
-const Template: ComponentStory<typeof Logo> = (args) => <Logo {...args} />;
+const Template: ComponentStory<typeof Logo> = (args) => <Logo {...args} />
 
-export const NormalLogo = Template.bind({});
-NormalLogo.args = {
+export const NormalSize = Template.bind({})
+NormalSize.args = {
   size: 60
 }
 
-export const LargeLogo = Template.bind({});
-LargeLogo.args = {
+export const Large = Template.bind({})
+Large.args = {
   size: 120
 }
 
-export const SmallLogo = Template.bind({});
-SmallLogo.args = {
+export const Small = Template.bind({})
+Small.args = {
   size: 30
 }

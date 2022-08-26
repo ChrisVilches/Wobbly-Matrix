@@ -1,3 +1,6 @@
+import { withRouter } from 'storybook-addon-react-router-v6'
+import '../src/styles.css'
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
@@ -6,4 +9,15 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  reactRouter: {
+  }
 }
+
+export const decorators = [
+  withRouter,
+  Story => (
+    <div>
+      <Story/>
+    </div>
+  )
+]

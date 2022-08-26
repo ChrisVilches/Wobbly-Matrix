@@ -9,7 +9,8 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
-    "@storybook/preset-create-react-app"
+    "@storybook/preset-create-react-app",
+    // '@storybook/addon-interactions'
   ],
   webpackFinal: async (config, { configType }) => {
     config.resolve.alias = {
@@ -49,6 +50,15 @@ Ignored several files/folders in the eslint ignore file. Try to remove those
 so they can be linted.
 
 Ideally try to remove the webpack file in this folder.
+
+Remove the extra files that were added automatically by Storybook (introduction mdx, Page, etc)
+
+Learn how to use the "Actions" tab
+
+Is it possible to separate .test files (Jest) into a different file? i.e. without using the
+"play" function. Although it's fine this way.
+
+Files in this folder (.storybook) are not linted. At least not with "npm run lint"
 
 ----
 
