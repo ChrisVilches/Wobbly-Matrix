@@ -5,12 +5,12 @@ module.exports = {
     {
       directory: '../src/stories/components/',
       titlePrefix: 'Components',
-      files: '*.stories.*',
+      files: '*.stories.*'
     },
     {
       directory: '../src/stories/routes/',
       titlePrefix: 'Routes',
-      files: '*.stories.*',
+      files: '*.stories.*'
     }
   ],
   addons: [

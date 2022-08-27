@@ -1,4 +1,4 @@
-import { useRef, useEffect, MutableRefObject } from 'react'
+import { useRef, useEffect, MutableRefObject, useCallback } from 'react'
 import gridRenderingJson from '@config/grid-rendering.json'
 import { GridRendering } from '@interfaces/GridRendering'
 
@@ -9,7 +9,7 @@ export const useAnimationFrame = (frameLimit: boolean, callback: Function): void
   const previousTimeRef: MutableRefObject<number | undefined> = useRef()
   const accumDelta: MutableRefObject<number> = useRef(0)
 
-  const animate = (time: number): void => {
+  const animate = useCallback((time: number): void => {
     if (previousTimeRef.current !== undefined) {
       const deltaTime = time - previousTimeRef.current
 
@@ -30,10 +30,10 @@ export const useAnimationFrame = (frameLimit: boolean, callback: Function): void
     }
     previousTimeRef.current = time
     requestRef.current = requestAnimationFrame(animate)
-  }
+  }, [frameLimit, callback])
 
   useEffect(() => {
     requestRef.current = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(requestRef.current!)
-  }, [frameLimit])
+  }, [frameLimit, animate])
 }
