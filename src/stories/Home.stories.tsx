@@ -1,10 +1,11 @@
 import React from 'react'
 import { Home } from '@routes/Home'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { fireEvent, within } from '@testing-library/react'
+import { fireEvent, within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 import gridConfigJson from '@config/default-grid-config.json'
 import { GridConfiguration } from '@interfaces/GridConfiguration'
+import { wait } from '@util/wait'
 const { cols: defaultCols } = gridConfigJson as GridConfiguration
 
 export default {
@@ -21,18 +22,17 @@ const assertResetButtonWorks = async (resetButton: HTMLElement): Promise<void> =
   localStorage.setItem('elasticity', JSON.stringify(+bigValue))
   localStorage.setItem('distWeight', JSON.stringify(+bigValue))
 
-  expect(localStorage.getItem('elasticity')).toBe(bigValue)
-  expect(localStorage.getItem('distWeight')).toBe(bigValue)
+  await expect(localStorage.getItem('elasticity')).toBe(bigValue)
+  await expect(localStorage.getItem('distWeight')).toBe(bigValue)
 
   await fireEvent.click(resetButton)
 
   const waitBufferTime = 500
+  await wait(waitBufferTime)
 
-  setTimeout(() => {
-    expect(localStorage.getItem('matrixSize')).toBe(`${defaultCols}`)
-    expect(localStorage.getItem('elasticity')).not.toBe(bigValue)
-    expect(localStorage.getItem('distWeight')).not.toBe(bigValue)
-  }, waitBufferTime)
+  await expect(localStorage.getItem('matrixSize')).toBe(`${defaultCols}`)
+  expect(localStorage.getItem('elasticity')).not.toBe(bigValue)
+  expect(localStorage.getItem('distWeight')).not.toBe(bigValue)
 }
 
 export const Default = Template.bind({})
