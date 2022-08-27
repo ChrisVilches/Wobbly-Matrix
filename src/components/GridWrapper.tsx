@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef, ReactElement } from 'react'
+import React, { MutableRefObject, useEffect, useRef, ReactElement, useCallback } from 'react'
 import { Point } from '@model/Point'
 import { CanvasRenderer } from '@model/CanvasRenderer'
 import { Grid } from '@model/Grid'
@@ -12,7 +12,7 @@ interface GridWrapperProps {
   distWeight: number
   rows: number
   cols: number
-  frameLimit: boolean
+  frameLimit?: boolean
   enableRipple?: boolean
   drawPoints?: boolean
 }
@@ -28,7 +28,7 @@ const setMousePosition = (mousePositionResult: MousePosition, canvasElement: HTM
   mousePos.set(x, y)
 }
 
-export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit, enableRipple = false, drawPoints = false }: GridWrapperProps): ReactElement => {
+export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit = false, enableRipple = false, drawPoints = false }: GridWrapperProps): ReactElement => {
   const canvasElement: MutableRefObject<HTMLCanvasElement | null> = useRef(null)
   const canvasRenderer: MutableRefObject<CanvasRenderer | null> = useRef(null)
   const mainPoint: MutableRefObject<Point | null> = useRef(null)
@@ -76,11 +76,14 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit, en
     grid.current!.distWeight = distWeight
   }, [rows, cols, elasticity, distWeight])
 
-  const canvasClickHandle = (): void => {
-    if (enableRipple) {
-      grid.current?.generateRipple(mousePos.current!)
-    }
-  }
+  const canvasClickHandle = useCallback(
+    (): void => {
+      if (enableRipple) {
+        grid.current?.generateRipple(mousePos.current!)
+      }
+    },
+    [enableRipple]
+  )
 
   setMousePosition(useMouse(canvasElement, useMouseOpts as UseMouseOptions), canvasElement.current!, mousePos.current!)
 
