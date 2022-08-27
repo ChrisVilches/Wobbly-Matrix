@@ -9,7 +9,6 @@ import { wait } from '@util/wait'
 const { cols: defaultCols } = gridConfigJson as GridConfiguration
 
 export default {
-  title: 'Routes/Home',
   component: Home
 } as ComponentMeta<typeof Home>
 

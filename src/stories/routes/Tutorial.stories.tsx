@@ -4,8 +4,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { expect } from '@storybook/jest'
 import { within } from '@storybook/testing-library'
 
-// TODO: These stories generate some warnings in the console.
-
 const routeConfig = (stage: number | undefined): object => {
   if (typeof stage === 'undefined') {
     return {}
@@ -22,7 +20,6 @@ const routeConfig = (stage: number | undefined): object => {
 }
 
 export default {
-  title: 'Routes/Tutorial',
   component: Tutorial,
   parameters: routeConfig(undefined)
 } as ComponentMeta<typeof Tutorial>

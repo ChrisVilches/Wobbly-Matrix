@@ -4,7 +4,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { ChevronLeftIcon } from '@heroicons/react/24/outline'
 
 export default {
-  title: 'Components/ConditionIconLinkButton',
   component: ConditionIconLinkButton
 } as ComponentMeta<typeof ConditionIconLinkButton>
 

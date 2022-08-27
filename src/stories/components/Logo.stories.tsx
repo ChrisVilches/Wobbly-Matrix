@@ -3,7 +3,6 @@ import { Logo } from '@components/Logo'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 export default {
-  title: 'Components/Logo',
   component: Logo
 } as ComponentMeta<typeof Logo>
 

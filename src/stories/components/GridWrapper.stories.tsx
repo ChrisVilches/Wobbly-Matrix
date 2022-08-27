@@ -3,7 +3,6 @@ import { GridWrapper } from '@components/GridWrapper'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 export default {
-  title: 'Components/GridWrapper',
   component: GridWrapper
 } as ComponentMeta<typeof GridWrapper>
 
@@ -14,8 +13,7 @@ Square.args = {
   elasticity: 0.7,
   distWeight: 0.002,
   rows: 5,
-  cols: 5,
-  frameLimit: false
+  cols: 5
 }
 
 export const RenderPoints = Template.bind({})
@@ -24,7 +22,6 @@ RenderPoints.args = {
   distWeight: 0.002,
   rows: 5,
   cols: 5,
-  frameLimit: false,
   drawPoints: true
 }
 
@@ -33,8 +30,7 @@ NonSquare.args = {
   elasticity: 0.7,
   distWeight: 0.002,
   rows: 2,
-  cols: 6,
-  frameLimit: false
+  cols: 6
 }
 
 export const FrameLimited = Template.bind({})
@@ -51,8 +47,7 @@ VeryWobbly.args = {
   elasticity: 0.99,
   distWeight: 0.003,
   rows: 4,
-  cols: 4,
-  frameLimit: false
+  cols: 4
 }
 
 export const RippleEffect = Template.bind({})
@@ -61,6 +56,5 @@ RippleEffect.args = {
   distWeight: 0.002,
   rows: 7,
   cols: 7,
-  frameLimit: false,
   enableRipple: true
 }

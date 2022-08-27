@@ -3,7 +3,6 @@ import { ZoomIcon } from '@components/ZoomIcon'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 export default {
-  title: 'Components/ZoomIcon',
   component: ZoomIcon
 } as ComponentMeta<typeof ZoomIcon>
 

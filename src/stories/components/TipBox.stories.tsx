@@ -3,7 +3,6 @@ import { TipBox } from '@components/TipBox'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 export default {
-  title: 'Components/TipBox',
   component: TipBox
 } as ComponentMeta<typeof TipBox>
 
