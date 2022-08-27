@@ -4,6 +4,7 @@ import { ZoomIcon } from '@components/ZoomIcon'
 import { scale } from '@util/scale'
 import gridRenderingJson from '@config/grid-rendering.json'
 import { GridRendering } from '@interfaces/GridRendering'
+import { isMobile } from 'react-device-detect'
 
 const { renderPointsDefault } = gridRenderingJson as GridRendering
 
@@ -31,7 +32,7 @@ export const VisualizationPane = ({ elasticity, distWeight, matrixSize, enlarged
         rows={matrixSize}
         cols={matrixSize}
         drawPoints={drawPoints}
-        enableRipple={true}/>
+        enableRipple={!isMobile}/>
 
       <div className="mt-4">
         <button className="xl:inline hidden btn btn-primary" onClick={() => setEnlarged(!enlarged)}>

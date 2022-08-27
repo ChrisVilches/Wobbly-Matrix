@@ -98,7 +98,7 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit, en
     <canvas
       width={1000}
       height={800}
-      className="w-full border-2"
+      className="w-full border-2 unselectable"
       onMouseDown={canvasClickHandle}
       ref={canvasElement}/>
   )
