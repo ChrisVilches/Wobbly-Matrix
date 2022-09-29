@@ -18,14 +18,10 @@ const receiveAllChanges = changes => {
 
 buffered$.subscribe(receiveAllChanges)
 
-export function useLocalStorage (key, initialValue) {
-  const valueFromStorage = () => {
-    console.count('Read localstorage')
-    const value = JSON.parse(window.localStorage.getItem(key))
-    return value === null ? initialValue : value
-  }
+const valueFromStorage = (key) => JSON.parse(window.localStorage.getItem(key))
 
-  const [value, setValue] = useState(isLocalStorageAvailable() ? valueFromStorage : initialValue)
+export function useLocalStorage (key, initialValue) {
+  const [value, setValue] = useState(() => isLocalStorageAvailable() ? valueFromStorage(key) ?? initialValue : initialValue)
 
   if (!isLocalStorageAvailable()) {
     return [value, setValue]
