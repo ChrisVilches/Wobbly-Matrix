@@ -35,7 +35,7 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit = f
   const mousePos: MutableRefObject<Point | null> = useRef(null)
   const grid: MutableRefObject<Grid | null> = useRef(null)
 
-  const resetFollowPoints = (): void => {
+  const resetFollowPoints = useCallback((): void => {
     console.log('Resetting points')
     const canvas = canvasElement.current!
     if (mainPoint.current === null || mousePos.current === null) {
@@ -44,7 +44,7 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit = f
     }
     mousePos.current.set(canvas.width / 2, canvas.height / 2)
     mainPoint.current.set(canvas.width / 2, canvas.height / 2)
-  }
+  }, [])
 
   useEffect(() => {
     console.log('Initializing data')
@@ -74,7 +74,7 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit = f
 
     grid.current!.elasticity = elasticity
     grid.current!.distWeight = distWeight
-  }, [rows, cols, elasticity, distWeight])
+  }, [rows, cols, elasticity, distWeight, resetFollowPoints])
 
   const canvasClickHandle = useCallback(
     (): void => {
@@ -101,7 +101,8 @@ export const GridWrapper = ({ elasticity, distWeight, rows, cols, frameLimit = f
     <canvas
       width={1000}
       height={800}
-      className="w-full border-2 unselectable"
+      style={{ touchAction: 'none' }}
+      className="w-full border-2 select-none"
       onMouseDown={canvasClickHandle}
       ref={canvasElement}/>
   )
