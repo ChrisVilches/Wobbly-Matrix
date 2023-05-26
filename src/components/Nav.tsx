@@ -23,7 +23,7 @@ export const Nav = (): ReactElement => {
       <Navbar.Brand href="/">
         <Logo size={60} className="my-4"/>
 
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        <span className="self-center whitespace-nowrap text-xl font-semibold">
           Wobbly Matrix
         </span>
       </Navbar.Brand>
